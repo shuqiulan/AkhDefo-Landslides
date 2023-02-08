@@ -2,3 +2,4 @@ myst-parser==0.18.1
 nbsphinx==0.8.12
 sphinx-gallery==0.11.1
 sphinx-theme==1.0
+plotly==5.13.0
