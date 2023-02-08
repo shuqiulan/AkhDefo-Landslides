@@ -1,0 +1,29 @@
+name: akhdefov2
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy
+  - gdal
+  - seaborn-image
+  - pandas
+  - ipykernel
+  - geowombat
+  - jupyter_core
+  - jupyter
+  - geopandas
+  - rioxarray
+  - seaborn
+  - cmocean
+  - pystackreg
+  - earthpy
+  - geocube
+  - cartopy
+  - arosics
+  - ipympl
+  - python=3.10
+  - geoplot
+  - gstools
+  - ipywidgets
+  - chart-studio
+

@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>akhdefo_functions.Akhdefo_inversion &mdash; Akhdefo software documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Akhdefo software documentation" href="../index.html"/>
+        <link rel="up" title="Documentation Summary" href="../api.html"/>
+        <link rel="next" title="akhdefo_functions.utm_to_latlon" href="akhdefo_functions.utm_to_latlon.html"/>
+        <link rel="prev" title="akhdefo_functions.Akhdefo_resample" href="akhdefo_functions.Akhdefo_resample.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Akhdefo
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home!</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Akhdefo:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#background-of-akh-defo">Background of Akh-Defo:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#recommended-citation">Recommended Citation:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#updates">Updates:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#installation-of-akhdefo-software">Installation of Akhdefo Software:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#akhdefo-functions-summary">Akhdefo Functions Summary</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Documentation Summary</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.unzip.html">akhdefo_functions.unzip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.copyImage_Data.html">akhdefo_functions.copyImage_Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.copyUDM2_Mask_Data.html">akhdefo_functions.copyUDM2_Mask_Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.Filter_PreProcess.html">akhdefo_functions.Filter_PreProcess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.Crop_to_AOI.html">akhdefo_functions.Crop_to_AOI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.Mosaic.html">akhdefo_functions.Mosaic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.Coregistration.html">akhdefo_functions.Coregistration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.DynamicChangeDetection.html">akhdefo_functions.DynamicChangeDetection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.plot_stackNetwork.html">akhdefo_functions.plot_stackNetwork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.stackprep.html">akhdefo_functions.stackprep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.Time_Series.html">akhdefo_functions.Time_Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.akhdefo_ts_plot.html">akhdefo_functions.akhdefo_ts_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.rasterClip.html">akhdefo_functions.rasterClip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.akhdefo_viewer.html">akhdefo_functions.akhdefo_viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.Akhdefo_resample.html">akhdefo_functions.Akhdefo_resample</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">akhdefo_functions.Akhdefo_inversion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#akhdefo_functions.Akhdefo_inversion"><code class="docutils literal notranslate"><span class="pre">Akhdefo_inversion()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.utm_to_latlon.html">akhdefo_functions.utm_to_latlon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.MeanProducts_plot_ts.html">akhdefo_functions.MeanProducts_plot_ts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.Auto_Variogram.html">akhdefo_functions.Auto_Variogram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.binary_mask.html">akhdefo_functions.binary_mask</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorials.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/aboutMe.html">About The Author</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/aboutUS.html">PHYSICAL VOLCANOLOGY RESEARCH GROUP</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Akhdefo</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">Documentation Summary</a> &raquo;</li>
+        
+      <li>akhdefo_functions.Akhdefo_inversion</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/akhdefo_functions.Akhdefo_inversion.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="akhdefo-functions-akhdefo-inversion">
+<h1>akhdefo_functions.Akhdefo_inversion<a class="headerlink" href="#akhdefo-functions-akhdefo-inversion" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="akhdefo_functions.Akhdefo_inversion">
+<span class="sig-prename descclassname"><span class="pre">akhdefo_functions.</span></span><span class="sig-name descname"><span class="pre">Akhdefo_inversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizontal_InSAR</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vertical_InSAR</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EW_Akhdefo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_Akhdefo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#akhdefo_functions.Akhdefo_inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>This program calculates 3D displacement velocity (East-West,North-South and vertical) using combined optical and InSAR products</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>horizontal_InSAR: str</dt><dd><p>path to East Velocity InSAR product in geotif format</p>
+</dd>
+<dt>Vertical_InSAR: str</dt><dd><p>path to Vertical Velocity InSAR product in geotif format</p>
+</dd>
+<dt>EW_Akhdefo: str </dt><dd><p>path to east-west velocity  akhdefo(optical) product in geotif format</p>
+</dd>
+<dt>NS_Akhdefo: str</dt><dd><p>path to north-south velocity  akhdefo(optical) product in geotif format</p>
+</dd>
+<dt>demFile: str</dt><dd><p>path to DEM raster in geotif format</p>
+</dd>
+<dt>output_folder<span class="classifier">str</span></dt><dd><p>path to save raster products</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Three geotif rasters</dt><dd><p>3D-Velocity (D3D in mm/year) raster
+Plunge raster in degrees
+Trend raster in degress</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="akhdefo_functions.utm_to_latlon.html" class="btn btn-neutral float-right" title="akhdefo_functions.utm_to_latlon" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="akhdefo_functions.Akhdefo_resample.html" class="btn btn-neutral" title="akhdefo_functions.Akhdefo_resample" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, Mahmud Mustafa Muhammad.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2023',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_highlight.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
