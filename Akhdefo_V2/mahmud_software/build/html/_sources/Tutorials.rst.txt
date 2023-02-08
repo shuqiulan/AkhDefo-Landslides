@@ -9,9 +9,9 @@ Tutorials
    :caption: Contents:
 
    notebooks/Data_Prep.ipynb
-   notebooks/Filter_PreProcess.ipynb
+   notebooks/Filter_PreProcess.md
    notebooks/Mosaic_Crop.ipynb
-   notebooks/DynamicChangeDetection.ipynb
+   notebooks/DynamicChangeDetection.md
    notebooks/Stack Prepartion.ipynb
    notebooks/Time_Series.ipynb
    notebooks/akhdefo_ts_plot.ipynb

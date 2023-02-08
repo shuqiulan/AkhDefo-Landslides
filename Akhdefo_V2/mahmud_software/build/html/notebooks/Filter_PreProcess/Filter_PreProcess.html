@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Filter and raster enhancement &mdash; Akhdefo software documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Akhdefo software documentation" href="../../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Akhdefo
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home!</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">Akhdefo:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#background-of-akh-defo">Background of Akh-Defo:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#recommended-citation">Recommended Citation:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#updates">Updates:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#installation-of-akhdefo-software">Installation of Akhdefo Software:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html#akhdefo-functions-summary">Akhdefo Functions Summary</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Documentation Summary</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aboutMe.html">About The Author</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aboutUS.html">PHYSICAL VOLCANOLOGY RESEARCH GROUP</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Akhdefo</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Filter and raster enhancement</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/notebooks/Filter_PreProcess/Filter_PreProcess.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="filter-and-raster-enhancement">
+<h1>Filter and raster enhancement<a class="headerlink" href="#filter-and-raster-enhancement" title="Permalink to this heading">¶</a></h1>
+<p>This program performs image color calibration and it has the ability to mask bad pixels.</p>
+<p><strong>import Module</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">from</span> <span class="nn">akhdefo_functions</span> <span class="kn">import</span> <span class="n">Filter_PreProcess</span>
+
+</pre></div>
+</div>
+<p><strong>run the module</strong></p>
+<p>Note: you can apply this module at any stage for instance before merging and mosaic or cropping to AOI. Although its recommended to apply before cropping raster images to your desired area of interest.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_filters</span><span class="o">=</span><span class="n">Filter_PreProcess</span><span class="p">(</span><span class="n">unfiltered_folderPath</span><span class="o">=</span><span class="s2">&quot;data/image_raster_tifs&quot;</span><span class="p">,</span> <span class="n">UDM2_maskfolderPath</span><span class="o">=</span> <span class="s2">&quot;data/UDM2_raster_tifs&quot;</span><span class="p">,</span> 
+                          <span class="n">outpath_dir</span><span class="o">=</span><span class="s2">&quot;data/filtred_rasters&quot;</span><span class="p">,</span> <span class="n">Udm_Mask_Option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_figure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>strat working on folder data/image_raster_tifs
+ start Processing Image Number:  0 : data/image_raster_tifs\5851965_1062413_2022-08-12_24a4_BGRN_SR_clip.tif
+(3, 1773, 4761)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_1.png" /></p>
+<p><img alt="png" src="../../_images/output_4_2.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  1 : data/image_raster_tifs\5864669_1062413_2022-08-17_2474_BGRN_SR_clip.tif
+(3, 1773, 4761)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_4.png" /></p>
+<p><img alt="png" src="../../_images/output_4_5.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  2 : data/image_raster_tifs\5869058_1062413_2022-08-20_2453_BGRN_SR_clip.tif
+(3, 1773, 4761)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_7.png" /></p>
+<p><img alt="png" src="../../_images/output_4_8.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  3 : data/image_raster_tifs\5869169_1062413_2022-08-20_248c_BGRN_SR_clip.tif
+(3, 1773, 4761)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_10.png" /></p>
+<p><img alt="png" src="../../_images/output_4_11.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  4 : data/image_raster_tifs\5874216_1062413_2022-08-22_2465_BGRN_SR_clip.tif
+(3, 1773, 4761)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_13.png" /></p>
+<p><img alt="png" src="../../_images/output_4_14.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  5 : data/image_raster_tifs\5881666_1062413_2022-08-25_241e_BGRN_SR_clip.tif
+(3, 1773, 4761)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_16.png" /></p>
+<p><img alt="png" src="../../_images/output_4_17.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  6 : data/image_raster_tifs\5881828_1062413_2022-08-25_2414_BGRN_SR_clip.tif
+(3, 1773, 4761)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_19.png" /></p>
+<p><img alt="png" src="../../_images/output_4_20.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  7 : data/image_raster_tifs\5892964_1062413_2022-08-30_2460_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_22.png" /></p>
+<p><img alt="png" src="../../_images/output_4_23.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  8 : data/image_raster_tifs\5893138_1062413_2022-08-30_2427_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_25.png" /></p>
+<p><img alt="png" src="../../_images/output_4_26.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  9 : data/image_raster_tifs\5895742_1062413_2022-08-31_2459_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_28.png" /></p>
+<p><img alt="png" src="../../_images/output_4_29.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  10 : data/image_raster_tifs\5898249_1062413_2022-09-01_24a4_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_31.png" /></p>
+<p><img alt="png" src="../../_images/output_4_32.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  11 : data/image_raster_tifs\5900307_1062413_2022-09-02_2464_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_34.png" /></p>
+<p><img alt="png" src="../../_images/output_4_35.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  12 : data/image_raster_tifs\5902754_1062413_2022-09-03_2499_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_37.png" /></p>
+<p><img alt="png" src="../../_images/output_4_38.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  13 : data/image_raster_tifs\5903099_1062413_2022-09-03_2426_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_40.png" /></p>
+<p><img alt="png" src="../../_images/output_4_41.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  14 : data/image_raster_tifs\5912289_1062413_2022-09-07_241f_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_43.png" /></p>
+<p><img alt="png" src="../../_images/output_4_44.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  15 : data/image_raster_tifs\5912994_1062413_2022-09-07_2495_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_46.png" /></p>
+<p><img alt="png" src="../../_images/output_4_47.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  16 : data/image_raster_tifs\5917223_1062413_2022-09-09_2478_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_49.png" /></p>
+<p><img alt="png" src="../../_images/output_4_50.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  17 : data/image_raster_tifs\5917611_1062413_2022-09-09_247e_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_52.png" /></p>
+<p><img alt="png" src="../../_images/output_4_53.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  18 : data/image_raster_tifs\5920303_1062413_2022-09-10_2475_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_55.png" /></p>
+<p><img alt="png" src="../../_images/output_4_56.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  19 : data/image_raster_tifs\5926948_1062413_2022-09-13_2482_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_58.png" /></p>
+<p><img alt="png" src="../../_images/output_4_59.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  20 : data/image_raster_tifs\5940456_1062413_2022-09-19_2474_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_61.png" /></p>
+<p><img alt="png" src="../../_images/output_4_62.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  21 : data/image_raster_tifs\5941375_1062413_2022-09-18_2473_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_64.png" /></p>
+<p><img alt="png" src="../../_images/output_4_65.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  22 : data/image_raster_tifs\5943127_1062413_2022-09-20_247c_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_67.png" /></p>
+<p><img alt="png" src="../../_images/output_4_68.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  23 : data/image_raster_tifs\5943207_1062413_2022-09-20_2435_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_70.png" /></p>
+<p><img alt="png" src="../../_images/output_4_71.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  24 : data/image_raster_tifs\5944094_1062413_2022-08-31_2212_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_73.png" /></p>
+<p><img alt="png" src="../../_images/output_4_74.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  25 : data/image_raster_tifs\5945478_1062413_2022-09-21_2276_BGRN_SR_clip.tif
+(3, 1423, 4083)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_76.png" /></p>
+<p><img alt="png" src="../../_images/output_4_77.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  26 : data/image_raster_tifs\5955030_1062413_2022-09-25_2451_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_79.png" /></p>
+<p><img alt="png" src="../../_images/output_4_80.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  27 : data/image_raster_tifs\5955195_1062413_2022-09-25_2480_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_82.png" /></p>
+<p><img alt="png" src="../../_images/output_4_83.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  28 : data/image_raster_tifs\5960569_1062413_2022-09-27_2442_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_85.png" /></p>
+<p><img alt="png" src="../../_images/output_4_86.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  29 : data/image_raster_tifs\5964662_1062413_2022-09-29_247d_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_88.png" /></p>
+<p><img alt="png" src="../../_images/output_4_89.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  30 : data/image_raster_tifs\5970747_1062413_2022-10-01_2473_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_91.png" /></p>
+<p><img alt="png" src="../../_images/output_4_92.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  31 : data/image_raster_tifs\5974078_1062413_2022-10-02_247f_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_94.png" /></p>
+<p><img alt="png" src="../../_images/output_4_95.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  32 : data/image_raster_tifs\5977188_1062413_2022-10-03_2251_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_97.png" /></p>
+<p><img alt="png" src="../../_images/output_4_98.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  33 : data/image_raster_tifs\5978388_1062413_2022-10-03_2495_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_100.png" /></p>
+<p><img alt="png" src="../../_images/output_4_101.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  34 : data/image_raster_tifs\5985561_1062413_2022-10-06_2262_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_103.png" /></p>
+<p><img alt="png" src="../../_images/output_4_104.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  35 : data/image_raster_tifs\5990651_1062413_2022-10-08_2233_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_106.png" /></p>
+<p><img alt="png" src="../../_images/output_4_107.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  36 : data/image_raster_tifs\6010545_1062413_2022-10-16_2212_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_109.png" /></p>
+<p><img alt="png" src="../../_images/output_4_110.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  37 : data/image_raster_tifs\6016090_1062413_2022-10-18_2455_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_112.png" /></p>
+<p><img alt="png" src="../../_images/output_4_113.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+ start Processing Image Number:  38 : data/image_raster_tifs\6016170_1062413_2022-10-18_2470_BGRN_SR_clip.tif
+(3, 923, 846)
+</pre></div>
+</div>
+<p><img alt="png" src="../../_images/output_4_115.png" /></p>
+<p><img alt="png" src="../../_images/output_4_116.png" /></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>process is completed
+All process is completed
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, Mahmud Mustafa Muhammad.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'2023',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/sphinx_highlight.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
