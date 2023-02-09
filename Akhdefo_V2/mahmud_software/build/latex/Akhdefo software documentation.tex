@@ -8675,15 +8675,39 @@ This notebook plots Time\sphinxhyphen{}series displacement profiles
 Please run thid notebook file inside Visual Studio Code
 
 \begin{sphinxuseclass}{nbinput}
-\begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{matplotlib} widget
 \PYG{k+kn}{from}  \PYG{n+nn}{akhdefo\PYGZus{}functions} \PYG{k+kn}{import} \PYG{n}{akhdefo\PYGZus{}ts\PYGZus{}plot}
-\PYG{c+c1}{\PYGZsh{}from IPython.core.display import display, HTML}
+\PYG{k+kn}{from} \PYG{n+nn}{IPython}\PYG{n+nn}{.}\PYG{n+nn}{core}\PYG{n+nn}{.}\PYG{n+nn}{display} \PYG{k+kn}{import} \PYG{n}{display}\PYG{p}{,} \PYG{n}{HTML}
 \PYG{c+c1}{\PYGZsh{}\PYGZpc{}matplotlib widget}
 
 \end{sphinxVerbatim}
+}
+
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nboutput}
+\begin{sphinxuseclass}{nblast}
+{
+
+\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
+\kern+\FrameHeightAdjust\kern-\fboxrule
+\vspace{\nbsphinxcodecellspacing}
+
+\sphinxsetup{VerbatimColor={named}{nbsphinx-stderr}}
+\begin{sphinxuseclass}{output_area}
+\begin{sphinxuseclass}{stderr}
+
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Mahmud\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Temp\textbackslash{}ipykernel\_63916\textbackslash{}3676105968.py:3: DeprecationWarning: Importing display from IPython.core.display is deprecated since IPython 7.14, please import from IPython display
+  from IPython.core.display import display, HTML
+\end{sphinxVerbatim}
+
+
+
+\end{sphinxuseclass}
+\end{sphinxuseclass}
 }
 
 \end{sphinxuseclass}
@@ -8691,7 +8715,7 @@ Please run thid notebook file inside Visual Studio Code
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}
+\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}
 \PYG{n}{akhdefo\PYGZus{}ts\PYGZus{}plot}\PYG{p}{(}\PYG{n}{path\PYGZus{}to\PYGZus{}shapefile}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{stack\PYGZus{}data/TS/TS\PYGZus{}EW\PYGZus{}20220812\PYGZus{}to\PYGZus{}20221016\PYGZus{}velocity.shp}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{dem\PYGZus{}path}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data/dem\PYGZus{}aoi.tif}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{point\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{opacity}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}
                   \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{RdYlBu\PYGZus{}r}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{Set\PYGZus{}fig\PYGZus{}MinMax}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{MinMaxRange}\PYG{o}{=}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{40}\PYG{p}{,}\PYG{l+m+mi}{40}\PYG{p}{]} \PYG{p}{,} \PYG{n}{color\PYGZus{}field}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{VEL}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{path\PYGZus{}saveData\PYGZus{}points}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{data/stack\PYGZus{}data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{save\PYGZus{}plot}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
                   \PYG{n}{Fig\PYGZus{}outputDir}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{stack\PYGZus{}data/TS\PYGZus{}profiles}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{,} \PYG{n}{VEL\PYGZus{}Scale}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{year}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
@@ -8718,15 +8742,21 @@ Please run thid notebook file inside Visual Studio Code
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
-\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{931a669a0469d25dc01416166dbe5d7f70f30c0c}.png}
+\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{2b460cece3b0a0a0c3659f9b0ce2ec8c11ee46dc}.png}
 
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{b5cba9348b98dfc2c87b3bb324e5392a87399278}.jpg}
+\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{7d6fd469a318faefc86f64623d53939c50cd5248}.jpg}
 
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{41e82522ddd242ba064bcc46e43f22167fdb11c5}.jpg}
+\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{2095b6b68cf1923a78353ac0fa7d86845c2e065a}.jpg}
 
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{1f029dd4dcf9f1752f8350f638eaa6edc88a2387}.jpg}
+\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{43a65dde27030c38045244e4cf18476ff68434c8}.jpg}
 
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{99c7ffa0a69e7bba2786e345eb9e99236e105cbe}.jpg}
+\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{5165c11c1d81e00de83efdb5a7f297174a60c227}.jpg}
+
+\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{5779dea409501b4ca512f6debc75abd0f7c2fb9f}.png}
+
+\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{63dcd1a1b16332f7cc61b3f9ef294706f6fbc065}.jpg}
+
+\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{0e44c42abd706a033e32580924d093ced157719d}.jpg}
 
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
