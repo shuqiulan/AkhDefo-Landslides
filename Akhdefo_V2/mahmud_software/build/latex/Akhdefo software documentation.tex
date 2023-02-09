@@ -229,7 +229,7 @@
 
 
 \title{Akhdefo software documentation}
-\date{Feb 08, 2023}
+\date{Feb 09, 2023}
 \release{2023}
 \author{Mahmud Mustafa Muhammad}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -854,7 +854,7 @@ coregistred rasters
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{generated/akhdefo_functions.DynamicChangeDetection:akhdefo_functions.DynamicChangeDetection}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{DynamicChangeDetection}}}{\emph{\DUrole{n}{Path\_working\_Directory}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{Path\_UDM2\_folder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{AOI\_shapefile}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{Path\_to\_DEMFile}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{out\_dir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{Coh\_Thresh}\DUrole{o}{=}\DUrole{default_value}{0.75}}, \emph{\DUrole{n}{vel\_thresh}\DUrole{o}{=}\DUrole{default_value}{0.063}}, \emph{\DUrole{n}{udm\_mask\_option}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{cmap}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}jet\textquotesingle{}}}, \emph{\DUrole{n}{Median\_Filter}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{Set\_fig\_MinMax}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{show\_figure}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{plot\_option}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}origional\textquotesingle{}}}, \emph{\DUrole{n}{xres}\DUrole{o}{=}\DUrole{default_value}{10}}, \emph{\DUrole{n}{yres}\DUrole{o}{=}\DUrole{default_value}{10}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{DynamicChangeDetection}}}{\emph{\DUrole{n}{Path\_working\_Directory}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{Path\_UDM2\_folder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{AOI\_shapefile}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{Path\_to\_DEMFile}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{out\_dir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{Coh\_Thresh}\DUrole{o}{=}\DUrole{default_value}{0.75}}, \emph{\DUrole{n}{vel\_thresh}\DUrole{o}{=}\DUrole{default_value}{0.063}}, \emph{\DUrole{n}{image\_sensor\_resolution}\DUrole{o}{=}\DUrole{default_value}{3125.0}}, \emph{\DUrole{n}{udm\_mask\_option}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{cmap}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}jet\textquotesingle{}}}, \emph{\DUrole{n}{Median\_Filter}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{Set\_fig\_MinMax}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{show\_figure}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{plot\_option}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}origional\textquotesingle{}}}, \emph{\DUrole{n}{xres}\DUrole{o}{=}\DUrole{default_value}{10}}, \emph{\DUrole{n}{yres}\DUrole{o}{=}\DUrole{default_value}{10}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 This program calculates optical flow velocity from triplets of daily optical satellite images.
@@ -887,6 +887,11 @@ similarity index threshold
 \sphinxAtStartPar
 maximum velocity magnitude allowed to be measured; this will help the program to exlude rockfall velocity.
 hence, only calculating displacement velocity.
+
+\sphinxlineitem{image\_sensor\_resolution: float}
+\sphinxAtStartPar
+Resolution of the satallite image raster resolution in millimeters. 
+for instance Planetlabs ortho imagery 1 pixel=3125.0 mm
 
 \end{description}
 
@@ -7065,7 +7070,7 @@ This will define largest velocity magnitude amount to be measured.
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 
 \PYG{n}{\PYGZus{}DailyVelocities}\PYG{o}{=}\PYG{n}{DynamicChangeDetection}\PYG{p}{(}\PYG{n}{Path\PYGZus{}working\PYGZus{}Directory}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data/cropped\PYGZus{}rasters}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} 
- \PYG{n}{Path\PYGZus{}to\PYGZus{}DEMFile}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data/dem\PYGZus{}aoi.tif}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{Coh\PYGZus{}Thresh}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{n}{vel\PYGZus{}thresh}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}
+ \PYG{n}{Path\PYGZus{}to\PYGZus{}DEMFile}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data/dem\PYGZus{}aoi.tif}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{Coh\PYGZus{}Thresh}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{n}{vel\PYGZus{}thresh}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{image\PYGZus{}sensor\PYGZus{}resolution}\PYG{o}{=}\PYG{l+m+mf}{3125.0}\PYG{p}{,}
 \PYG{n}{udm\PYGZus{}mask\PYGZus{}option}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Spectral}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{Median\PYGZus{}Filter}\PYG{o}{=}\PYG{k+kc}{True} \PYG{p}{,}
 \PYG{n}{Set\PYGZus{}fig\PYGZus{}MinMax}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{show\PYGZus{}figure}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{plot\PYGZus{}option}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{origional}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{out\PYGZus{}dir}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data}\PYG{l+s+s2}{\PYGZdq{}} \PYG{p}{,} \PYG{n}{AOI\PYGZus{}shapefile}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data/AOI.shp}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
@@ -8673,7 +8678,7 @@ Please run thid notebook file inside Visual Studio Code
 \begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{matplotlib} notebook
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{matplotlib} widget
 \PYG{k+kn}{from}  \PYG{n+nn}{akhdefo\PYGZus{}functions} \PYG{k+kn}{import} \PYG{n}{akhdefo\PYGZus{}ts\PYGZus{}plot}
 \PYG{c+c1}{\PYGZsh{}from IPython.core.display import display, HTML}
 \PYG{c+c1}{\PYGZsh{}\PYGZpc{}matplotlib widget}
@@ -8686,7 +8691,7 @@ Please run thid notebook file inside Visual Studio Code
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[4]:\,\hspace{\fboxrule}\hspace{\fboxsep}}
+\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}
 \PYG{n}{akhdefo\PYGZus{}ts\PYGZus{}plot}\PYG{p}{(}\PYG{n}{path\PYGZus{}to\PYGZus{}shapefile}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{stack\PYGZus{}data/TS/TS\PYGZus{}EW\PYGZus{}20220812\PYGZus{}to\PYGZus{}20221016\PYGZus{}velocity.shp}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{dem\PYGZus{}path}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data/dem\PYGZus{}aoi.tif}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{point\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{opacity}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}
                   \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{RdYlBu\PYGZus{}r}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{Set\PYGZus{}fig\PYGZus{}MinMax}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{MinMaxRange}\PYG{o}{=}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{40}\PYG{p}{,}\PYG{l+m+mi}{40}\PYG{p}{]} \PYG{p}{,} \PYG{n}{color\PYGZus{}field}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{VEL}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{path\PYGZus{}saveData\PYGZus{}points}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{data/stack\PYGZus{}data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{save\PYGZus{}plot}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
                   \PYG{n}{Fig\PYGZus{}outputDir}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{stack\PYGZus{}data/TS\PYGZus{}profiles}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{,} \PYG{n}{VEL\PYGZus{}Scale}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{year}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
@@ -8695,53 +8700,26 @@ Please run thid notebook file inside Visual Studio Code
 
 \end{sphinxuseclass}
 \begin{sphinxuseclass}{nboutput}
-{
-
-\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
-\kern+\FrameHeightAdjust\kern-\fboxrule
-\vspace{\nbsphinxcodecellspacing}
-
-\sphinxsetup{VerbatimColor={named}{white}}
-\begin{sphinxuseclass}{output_area}
-\begin{sphinxuseclass}{}
-
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-<IPython.core.display.Javascript object>
-\end{sphinxVerbatim}
-
-
-
-\end{sphinxuseclass}
-\end{sphinxuseclass}
-}
-
-\end{sphinxuseclass}
-\begin{sphinxuseclass}{nboutput}
 \begin{sphinxuseclass}{nblast}
-{
-
-\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
-\kern+\FrameHeightAdjust\kern-\fboxrule
+\hrule height -\fboxrule\relax
 \vspace{\nbsphinxcodecellspacing}
 
-\sphinxsetup{VerbatimColor={named}{white}}
+\makeatletter\setbox\nbsphinxpromptbox\box\voidb@x\makeatother
+
+\begin{nbsphinxfancyoutput}
+
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-<IPython.core.display.HTML object>
-\end{sphinxVerbatim}
-
-
+\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{notebooks_akhdefo_ts_plot_3_0}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
-}
+\end{nbsphinxfancyoutput}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
+\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{931a669a0469d25dc01416166dbe5d7f70f30c0c}.png}
+
 \noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{b5cba9348b98dfc2c87b3bb324e5392a87399278}.jpg}
 
 \noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{41e82522ddd242ba064bcc46e43f22167fdb11c5}.jpg}

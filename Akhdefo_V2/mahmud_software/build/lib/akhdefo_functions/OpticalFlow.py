@@ -62,7 +62,7 @@ def binary_mask(raster_path , shape_path, output_path, file_name ):
 
 
 def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AOI_shapefile='',
- Path_to_DEMFile=r"", out_dir="", Coh_Thresh=0.75 , vel_thresh=0.063 , udm_mask_option=False , cmap='jet', 
+ Path_to_DEMFile=r"", out_dir="", Coh_Thresh=0.75 , vel_thresh=0.063 , image_sensor_resolution=3125.0, udm_mask_option=False , cmap='jet', 
  Median_Filter=False, Set_fig_MinMax=False, show_figure=False, plot_option="origional", xres=10, yres=10):
     
 
@@ -92,6 +92,9 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         maximum velocity magnitude allowed to be measured; this will help the program to exlude rockfall velocity.
         hence, only calculating displacement velocity.
 
+    image_sensor_resolution: float
+        Resolution of the satallite image raster resolution in millimeters. 
+        for instance Planetlabs ortho imagery 1 pixel=3125.0 mm 
     udm_mask_option: bool
 
     cmap: str
@@ -706,8 +709,8 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
             demfile = r1.read(1)
             meta = r1.meta
         
-        flow_xgr=flow_x /3/ int(Delta_DD) *3125.0 #convert pixel to cm(mm) and divide by difference of number of days between frame1 and frame3
-        flow_ygr=flow_y /3/ int(Delta_DD) *3125.0
+        flow_xgr=flow_x /3/ int(Delta_DD) * image_sensor_resolution #convert pixel to cm(mm) and divide by difference of number of days between frame1 and frame3
+        flow_ygr=flow_y /3/ int(Delta_DD) * image_sensor_resolution
 
     
 
