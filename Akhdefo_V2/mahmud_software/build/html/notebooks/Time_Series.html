@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Time Series &mdash; Akhdefo software documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Akhdefo software documentation" href="../index.html"/>
+        <link rel="up" title="Tutorials" href="../Tutorials.html"/>
+        <link rel="next" title="Time-series profile plot" href="akhdefo_ts_plot.html"/>
+        <link rel="prev" title="Stack Prepartion" href="Stack%20Prepartion.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Akhdefo
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home!</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Akhdefo:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#background-of-akh-defo">Background of Akh-Defo:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#recommended-citation">Recommended Citation:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#documentation-website">Documentation Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#tutorials">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#latest-version-of-akhdefo">Latest Version of AkhDefo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#updates">Updates:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#installation-of-akhdefo-software">Installation of Akhdefo Software:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#akhdefo-functions-summary">Akhdefo Functions Summary</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Documentation Summary</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../Tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Data_Prep.html">Data Prepartion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Filter_PreProcess.html">Filter and raster enhancement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mosaic_Crop.html">Mosiac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mosaic_Crop.html#Crop">Crop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DynamicChangeDetection.html">Optical Flow Program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Stack%20Prepartion.html">Stack Prepartion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Time Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_ts_plot.html">Time-series profile plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Akhdefo_plot.html">Akhdefo Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Akhdefo_plot.html#Plot-North-South-Temporal-Deformation">Plot North-South Temporal Deformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Akhdefo_plot.html#Plot-East-West-Temporal-Deformation">Plot East-West Temporal Deformation</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aboutMe.html">About The Author</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aboutUS.html">PHYSICAL VOLCANOLOGY RESEARCH GROUP</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Akhdefo</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../Tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Time Series</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/notebooks/Time_Series.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars and line breaks on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<section id="Time-Series">
+<h1>Time Series<a class="headerlink" href="#Time-Series" title="Permalink to this heading">¶</a></h1>
+<p>This program uses candiate velocity points from stackprep function and performs linear interpolation in time-domain to calibrate stacked velocity.</p>
+<p>Additionally produces corrected timeseries velocity(daily) in a shapefile.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akhdefo_functions</span> <span class="kn">import</span> <span class="n">Time_Series</span>
+
+<span class="n">Time_Series</span><span class="p">(</span><span class="n">stacked_raster_EW</span><span class="o">=</span><span class="s1">&#39;raster_stackxn.tif&#39;</span><span class="p">,</span> <span class="n">stacked_raster_NS</span><span class="o">=</span><span class="s1">&#39;raster_stackyn.tif&#39;</span><span class="p">,</span>
+              <span class="n">velocity_points</span><span class="o">=</span><span class="s1">&#39;stack_data/20220812_to_20221016_velocity.shp&#39;</span><span class="p">,</span> <span class="n">dates_name</span><span class="o">=</span><span class="s1">&#39;data/Names.txt&#39;</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="s1">&#39;stack_data/TS&#39;</span><span class="p">,</span> <span class="n">rasteriz_mean_products</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">std</span><span class="o">=</span><span class="mi">1</span> <span class="p">,</span><span class="n">VEL_Scale</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">velocity_mode</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">master_reference</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;xarray.DataArray (band: 24, y: 1625, x: 1922)&gt;
+dask.array&lt;open_rasterio-d77f9c74c0d78a1f8396ca86e0d721c6&lt;this-array&gt;, shape=(24, 1625, 1922), dtype=float32, chunksize=(24, 1, 1922), chunktype=numpy.ndarray&gt;
+Coordinates:
+  * band     (band) int32 1 2 3 4 5 6 7 8 9 10 ... 15 16 17 18 19 20 21 22 23 24
+  * x        (x) float64 4.546e+05 4.546e+05 4.546e+05 ... 4.565e+05 4.565e+05
+  * y        (y) float64 5.612e+06 5.612e+06 5.612e+06 ... 5.61e+06 5.61e+06
+Attributes: (12/14)
+    transform:           (1.0000012039141082, 0.0, 454614.137607063, 0.0, -1....
+    crs:                 32610
+    res:                 (1.0000012039141082, 1.0000012039139252)
+    is_tiled:            1
+    nodatavals:          (-32767.0, -32767.0, -32767.0, -32767.0, -32767.0, -...
+    _FillValue:          -32767.0
+    ...                  ...
+    descriptions:        (&#39;20220812-20220817-20220820&#39;, &#39;20220817-20220820-20...
+    filename:            raster_stackxn.tif
+    resampling:          nearest
+    AREA_OR_POINT:       Area
+    _data_are_separate:  0
+    _data_are_stacked:   0
+24
+30
+          D20220812     D20220817     D20220820     D20220822     D20220825  \
+count  18115.000000  18115.000000  18115.000000  18115.000000  18115.000000
+mean      -4.973948    -14.188133     -3.562511      3.508297      5.523713
+std       25.473501     29.005026     25.578961     28.310126     29.669622
+min      -98.045265    -98.022362    -98.022362    -98.022362    -98.022362
+25%      -14.373494    -35.037466    -17.389901    -11.312733    -10.458511
+50%       -0.017616     -8.759597      0.082645      8.233754      9.867572
+75%        9.497916      4.744570     14.310196     25.270132     28.602510
+max       53.144352     53.144352     53.144352     53.144352     53.742714
+
+          D20220830     D20220831     D20220901     D20220902     D20220903  \
+count  18115.000000  18115.000000  18115.000000  18115.000000  18115.000000
+mean     -15.603970    -25.116661    -27.039897    -39.024902     -9.426283
+std       41.662121     53.760188     55.153704     57.497242     55.264541
+min     -219.439758   -263.667480   -269.589203   -227.689891   -251.520513
+25%      -36.904500    -60.509131    -64.697998    -80.045361    -44.662021
+50%      -10.375151    -23.627621    -28.739878    -39.621426     -3.947677
+75%       11.033987      8.472830      7.010683     -0.051656     29.644797
+max      180.537445    200.639923    223.799637    209.091927    194.384216
+
+       ...     D20220918     D20220919     D20220920     D20220921  \
+count  ...  18115.000000  18115.000000  18115.000000  18115.000000
+mean   ...     -8.711445      2.303734      7.971401    -18.726369
+std    ...     53.326408     51.661771     47.590646     51.400200
+min    ...   -207.854767   -238.502472   -233.398443   -228.294413
+25%    ...    -40.873192    -27.096929    -18.384309    -52.083290
+50%    ...     -2.527988      4.851486     13.623088    -18.772463
+75%    ...     27.449055     34.765901     39.366505     13.594185
+max    ...    199.900620    229.519165    164.937393    171.929779
+
+          D20220925     D20220927     D20220929     D20221001     D20221002  \
+count  18115.000000  18115.000000  18115.000000  18115.000000  18115.000000
+mean      -9.717224    -38.046281    -18.049163    -39.980661     -9.647096
+std       52.786254     61.015240     59.957386     62.520380     54.794781
+min     -246.095261   -235.907425   -239.368874   -282.782196   -257.552643
+25%      -43.820114    -83.983513    -60.214352    -90.370586    -44.498947
+50%       -8.725658    -37.522614    -15.729465    -35.708736     -5.242236
+75%       26.017587      8.760628     26.429051      8.824845     28.902558
+max      200.612122    165.754971    197.307434    144.831375    165.355713
+
+          D20221003
+count  18115.000000
+mean      10.092664
+std       53.533357
+min     -257.552643
+25%      -21.143548
+50%       17.641796
+75%       47.533178
+max      208.277237
+
+[8 rows x 24 columns]
+&lt;xarray.DataArray (band: 24, y: 1625, x: 1922)&gt;
+dask.array&lt;open_rasterio-cfadd85b7d094929845bdce6abe7c411&lt;this-array&gt;, shape=(24, 1625, 1922), dtype=float32, chunksize=(24, 1, 1922), chunktype=numpy.ndarray&gt;
+Coordinates:
+  * band     (band) int32 1 2 3 4 5 6 7 8 9 10 ... 15 16 17 18 19 20 21 22 23 24
+  * x        (x) float64 4.546e+05 4.546e+05 4.546e+05 ... 4.565e+05 4.565e+05
+  * y        (y) float64 5.612e+06 5.612e+06 5.612e+06 ... 5.61e+06 5.61e+06
+Attributes: (12/14)
+    transform:           (1.0000012039141082, 0.0, 454614.137607063, 0.0, -1....
+    crs:                 32610
+    res:                 (1.0000012039141082, 1.0000012039139252)
+    is_tiled:            1
+    nodatavals:          (-32767.0, -32767.0, -32767.0, -32767.0, -32767.0, -...
+    _FillValue:          -32767.0
+    ...                  ...
+    descriptions:        (&#39;20220812-20220817-20220820&#39;, &#39;20220817-20220820-20...
+    filename:            raster_stackyn.tif
+    resampling:          nearest
+    AREA_OR_POINT:       Area
+    _data_are_separate:  0
+    _data_are_stacked:   0
+24
+30
+          D20220812     D20220817     D20220820     D20220822     D20220825  \
+count  18117.000000  18117.000000  18117.000000  18117.000000  18117.000000
+mean       8.652711      6.302736      5.156551      5.368314      5.150092
+std       14.311857     14.200058     13.736916     14.537653     14.753443
+min      -35.385731    -35.385731    -35.385731    -35.385731    -36.435285
+25%       -0.203975     -3.999856     -4.630605     -6.056280     -6.780591
+50%        5.604016      2.793632      1.961344      1.617403      1.351693
+75%       20.747395     17.047855     14.064308     15.752561     15.842314
+max      122.905769    122.905769    122.905769    122.905769    122.905769
+
+          D20220830     D20220831     D20220901     D20220902     D20220903  \
+count  18117.000000  18117.000000  18117.000000  18117.000000  18117.000000
+mean      20.715360     -1.019569      4.133764     -7.718168    -29.127176
+std       59.770492     63.768632     62.580914     62.179754     63.557261
+min     -193.294235   -192.810699   -231.642746   -244.353129   -257.063512
+25%      -18.430401    -48.374161    -39.646989    -49.971451    -77.901892
+50%       11.068819     -3.464393     -3.433838    -15.200340    -36.735222
+75%       58.183720     41.548851     37.714366     29.918261      6.343976
+max      246.049088    246.049622    263.092194    240.136058    227.439948
+
+       ...     D20220918     D20220919     D20220920     D20220921  \
+count  ...  18117.000000  18117.000000  18117.000000  18117.000000
+mean   ...     13.891962     -4.599182    -31.478918     -2.274404
+std    ...     67.220421     56.840666     55.404406     57.353801
+min    ...   -234.056335   -200.239166   -185.329727   -177.840735
+25%    ...    -35.454826    -45.334763    -73.638954    -42.949392
+50%    ...      9.131056     -9.990651    -41.403290     -6.808081
+75%    ...     57.924037     29.522033      3.225872     32.023060
+max    ...    260.637238    232.221909    197.194524    215.355261
+
+          D20220925     D20220927     D20220929     D20221001     D20221002  \
+count  18117.000000  18117.000000  18117.000000  18117.000000  18117.000000
+mean      55.791127     51.264127     41.019411     32.486552    -20.812689
+std       66.653206     51.194594     53.910146     73.396918     67.824899
+min     -199.853790   -172.066420   -189.770889   -183.649101   -191.642654
+25%        3.119740     22.298183      4.356912    -24.770360    -78.291397
+50%       43.959412     49.981888     33.729767     15.456591    -35.468765
+75%      112.516121     83.465149     79.108069     85.032036     32.765429
+max      250.980606    257.347748    241.082581    247.780716    215.756592
+
+          D20221003
+count  18117.000000
+mean      27.235093
+std       41.207356
+min     -191.642654
+25%        0.346800
+50%       27.116482
+75%       53.236202
+max      215.756592
+
+[8 rows x 24 columns]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script></section>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="akhdefo_ts_plot.html" class="btn btn-neutral float-right" title="Time-series profile plot" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Stack%20Prepartion.html" class="btn btn-neutral" title="Stack Prepartion" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, Mahmud Mustafa Muhammad.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2023',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_highlight.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script type="text/javascript" src="../None"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
