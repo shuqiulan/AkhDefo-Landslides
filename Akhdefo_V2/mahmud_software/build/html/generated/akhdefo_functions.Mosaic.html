@@ -96,12 +96,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../README.html">Akhdefo:</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../README.html#background-of-akh-defo">Background of Akh-Defo:</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../README.html#recommended-citation">Recommended Citation:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#documentation-website">Documentation Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#tutorials">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#latest-version-of-akhdefo">Latest Version of AkhDefo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../README.html#updates">Updates:</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../README.html#installation-of-akhdefo-software">Installation of Akhdefo Software:</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../README.html#akhdefo-functions-summary">Akhdefo Functions Summary</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Documentation Summary</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.read_data_prep.html">akhdefo_functions.read_data_prep</a></li>
 <li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.unzip.html">akhdefo_functions.unzip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.copyImage_Data.html">akhdefo_functions.copyImage_Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="akhdefo_functions.copyUDM2_Mask_Data.html">akhdefo_functions.copyUDM2_Mask_Data</a></li>
@@ -203,16 +207,16 @@
 <h1>akhdefo_functions.Mosaic<a class="headerlink" href="#akhdefo-functions-mosaic" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="akhdefo_functions.Mosaic">
-<span class="sig-prename descclassname"><span class="pre">akhdefo_functions.</span></span><span class="sig-name descname"><span class="pre">Mosaic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_to_WorkingDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_MosaicDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#akhdefo_functions.Mosaic" title="Permalink to this definition">¶</a></dt>
-<dd><p>This program mosiacs raster images in geotif format as well grab dates the satellite image taken for further processing. 
-The current version only supports Planet Labs SurfaceReflectance products.</p>
+<span class="sig-prename descclassname"><span class="pre">akhdefo_functions.</span></span><span class="sig-name descname"><span class="pre">Mosaic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_to_WorkingDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_MosaicDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#akhdefo_functions.Mosaic" title="Permalink to this definition">¶</a></dt>
+<dd><p>This program mosiacs raster images in geotif format as well as grab dates of the satellite image taken for further processing. 
+The current version only supports PlanetLabs ortho SurfaceReflectance products.</p>
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <p>Path_to_WorkingDir: str</p>
 <p>output_MosaicDir: str</p>
-<dl class="simple">
-<dt>img_mode: int</dt><dd><p>if img_mode=0 the the programs mosaics only the raster images. 
-if img_mode=1 the program mosiacs only mask rasters</p>
+<dl>
+<dt>img_mode: int</dt><dd><p>if img_mode=0 the the programs mosaics only the udm maskraster images.</p>
+<p>if img_mode=1 the program mosiacs only  rasters data images</p>
 </dd>
 </dl>
 </section>
@@ -279,6 +283,7 @@ if img_mode=1 the program mosiacs only mask rasters</p>
       <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="../_static/sphinx_highlight.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
 
   
 

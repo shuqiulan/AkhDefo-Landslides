@@ -1,12 +1,11 @@
 
 
 
-
-def Mosaic(Path_to_WorkingDir=r"", output_MosaicDir=r"" , img_mode=0):
+def Mosaic(Path_to_WorkingDir=r"", output_MosaicDir=r"" , img_mode=1):
 
     """
-    This program mosiacs raster images in geotif format as well grab dates the satellite image taken for further processing. 
-    The current version only supports Planet Labs SurfaceReflectance products.
+    This program mosiacs raster images in geotif format as well as grab dates of the satellite image taken for further processing. 
+    The current version only supports PlanetLabs ortho SurfaceReflectance products.
 
     Parameters
     ----------
@@ -16,8 +15,9 @@ def Mosaic(Path_to_WorkingDir=r"", output_MosaicDir=r"" , img_mode=0):
     output_MosaicDir: str
 
     img_mode: int
-         if img_mode=0 the the programs mosaics only the raster images. 
-         if img_mode=1 the program mosiacs only mask rasters
+         if img_mode=0 the the programs mosaics only the udm maskraster images.
+         
+         if img_mode=1 the program mosiacs only  rasters data images
 
     Returns
     -------
@@ -31,8 +31,6 @@ def Mosaic(Path_to_WorkingDir=r"", output_MosaicDir=r"" , img_mode=0):
     from osgeo import gdal
     import glob
 
-    
-    mypath=r"zip_folders"
 
 #5851965_1062413_2022-08-12_24a4_BGRN_SR_clip.tif
 #5851965_1062413_2022-08-12_24a4_udm2_clip.tif
@@ -41,8 +39,8 @@ def Mosaic(Path_to_WorkingDir=r"", output_MosaicDir=r"" , img_mode=0):
     output_MosaicDir=output_MosaicDir
     if img_mode==1:
         ext="*.tif"
-        count_left=16
-        count_right=-22
+        #count_left=16
+        #count_right=-22
     elif img_mode==0:
         ext="*udm2*.tif"
         count_left=16
@@ -52,9 +50,7 @@ def Mosaic(Path_to_WorkingDir=r"", output_MosaicDir=r"" , img_mode=0):
         please enter 1 to process image data or 
         enter 0 to processes UDM2 Mask data""")
 
-    imglist = glob.glob(Working_Dir +"/"+ ext)
-    imglist.sort(key=os.path.getctime)
-    counter=len(Working_Dir)+1
+    imglist = sorted(glob.glob(Working_Dir +"/"+ ext))
     if not os.path.exists(Working_Dir):
         os.makedirs(Working_Dir)
 
@@ -63,37 +59,40 @@ def Mosaic(Path_to_WorkingDir=r"", output_MosaicDir=r"" , img_mode=0):
 
     outputfolder=output_MosaicDir
     
+
     for idx, item1 in enumerate( imglist):
-        for item2 in imglist[idx+1:]:
-            img_similar_datesList=[]
+        #for item2 in imglist[idx+1:]:
             
-            filepath1, filename1 = os.path.split(imglist[idx])
-            filepath2, filename2 = os.path.split(imglist[idx+1])
+        filepath1, filename1 = os.path.split(imglist[idx])
+        if img_mode==1:
+            
+            track_dates1=filename1[:10]
+            img_similar_datesList = [s for s in imglist if track_dates1 in s]
+            merged_name= outputfolder + "/" + str(track_dates1 )  + ".tif"
+            print("Mosaic file Name: " , img_similar_datesList )
+            vrt = gdal.BuildVRT("merged1.vrt", img_similar_datesList)
+            gdal.Translate(merged_name, vrt, xRes = 3.125, yRes = -3.125)
+            vrt = None 
+                     
+        elif img_mode==0:
+            #ext="*udm2*.tif"
+            count_left=16
+            count_right=-19
             track_dates1=filename1[count_left:count_right]
-            track_dates2=filename2[count_left:count_right]
-            print("item1: ", track_dates1 )
-            print("item2: ", track_dates2)
-
-            if track_dates1 == (track_dates2):
-                #merged_name= dest + "/" + item1[9:]
-                img_similar_datesList=[imglist[idx] , imglist[idx+1]]
-                merged_name= outputfolder + "/" + str(track_dates1 )  + ".tif"
-                print("Mosaic file Name: " , merged_name )
-                vrt = gdal.BuildVRT("merged1.vrt", img_similar_datesList)
-                gdal.Translate(merged_name, vrt, xRes = 3.125, yRes = -3.125)
-                vrt = None  
-            elif track_dates1 != track_dates2:
-                name= outputfolder + "/" + str(track_dates1 ) + ".tif"
-                path_to_file = name
-                path = Path(path_to_file)
-
-                if path.is_file():
-                    print(f'The file dates {path_to_file} exists and already merged')
-                else:
-                    print(f'The file {path_to_file} does not exist copied to merged folder')
-                    vrt = gdal.BuildVRT("merged2.vrt", [imglist[idx]])
-                    gdal.Translate(name, vrt, xRes = 3.125, yRes = -3.125)
-                    vrt = None
+            img_similar_datesList = [s for s in imglist if track_dates1 in s]
+            merged_name= outputfolder + "/" + str(track_dates1 )  + ".tif"
+            print("Mosaic file Name: " , img_similar_datesList )
+            vrt = gdal.BuildVRT("merged1.vrt", img_similar_datesList)
+            gdal.Translate(merged_name, vrt, xRes = 3.125, yRes = -3.125)
+            vrt = None  
+           
+        
+      
+         
+           
+        
+      
+        
 
 
 def rasterClip(rasterpath, aoi, outfilename):

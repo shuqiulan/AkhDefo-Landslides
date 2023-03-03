@@ -9,31 +9,31 @@ cbar_label="Velocity(mm/year)", title="Akhdefo-Viewer", pixel_resolution_meter=3
     Parameters
     ----------
 
-    Path_to_DEMFile : str 
+    Path_to_DEMFile: str 
         provide path to digital elevation raster file to be used as shaded base Map
 
-    rasterfile : str
+    rasterfile: str
         provide path to raster file to be plotted
 
-    title : str
+    title: str
         provide your desired title for the plot
 
     pixel_resolution_meter : float
         provide pixel resolution of the digital elevation raster to draw proper figure scalebar
 
-    outputfolder : str
+    outputfolder: str
         provide path to ouput folder to save the plot
 
-    outputfileName : str 
+    outputfileName: str 
         provide name for the output plot including the desired extension such as .jpg, .pmg, .pdf, etc..
 
-    alpha : float
+    alpha: float
         transparency level for the plotted raster relative to hillshaded basemap
 
-    unit : int
+    unit: int
         conversion unit default is 1 (no conversion) if your data is in meter such as velocity in meter/year set unit to 2 to convert to mm/year
 
-    noDATA_MAsk : bool 
+    noDATA_MAsk: bool 
         set to True if you do not want to plot zero values of your dataset
     
     Returns
@@ -239,19 +239,19 @@ def plot_stackNetwork(src_folder=r"", output_folder=r"" , cmap='tab20', date_plo
 
     Parameters
     ----------
-    src_folder : str
+    src_folder: str
         path to georeferenced_folder
 
-    output_folder : str
+    output_folder: str
         path to output folder to save output Figure plot
 
-    cmap : str
+    cmap: str
         colormap for the plot default is "tab20"
 
-    date_plot_interval : list
+    date_plot_interval: list
         minumum and maximum plot x axis interval dates for the plot
     
-    marker_size : float
+    marker_size: float
         size of plotted points default is 15
 
     Returns
@@ -379,46 +379,46 @@ def plot_stackNetwork(src_folder=r"", output_folder=r"" , cmap='tab20', date_plo
 
 def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity=0.75, cmap="turbo",
                     Set_fig_MinMax=True, MinMaxRange=[-50,50] , color_field='VEL', user_data_points="", 
-                    path_saveData_points="" , save_plot=False, Fig_outputDir='' , VEL_Scale='year'):
+                    path_saveData_points="" , save_plot=False, Fig_outputDir='' , VEL_Scale='year', filename_dates=''):
     '''
     This program used for analysis time-series velocity profiles
 
     Parameters
     ----------
 
-    user_data_points : str
+    user_data_points: str
         provide path to csv. file contains x and y coordinate for points of interest
         you can generate this file by providing path to path_saveData_points (POI.csv).
         This is useful to save mouse click positions to repeat the plots for different datasets for example if you plot several TS profiles for
         EW velocity product, you can recreate TS for the same exact position by saving POI.csv with path_saveData_points and then use that as input for the another
         plot such as NS velocity product via setting user_datapoints="POI.csv"
     
-    path_to_shapefile : str 
+    path_to_shapefile: str 
         type path to timeseries shapefile in stack_data/TS folder
     
-    dem_path : str
+    dem_path: str
         path to dem raster in geotif fromat
 
-    point_size : float
+    point_size: float
         size of the sactter plot points
 
-    opacity : float 
+    opacity: float 
         transparency of the scater overlay
 
-    cmap : str
+    cmap: str
         Matplotlib colormap options example "RdYlBu_r, jet, turbo, hsv, etc..."
                     
-    Set_fig_MinMax : bool
+    Set_fig_MinMax: bool
         True or False
 
-    MinMaxRange : list
+    MinMaxRange: list
         [-50,50]  Normalize plot colormap range if Set_fig_MinMax=True
 
-    color_field : str 
+    color_field: str 
         'VEL' ,"VEL_2D", 'VEL_N', 'VEL_E', 'VELDir_MEA'
 
    
-    path_saveData_points : str
+    path_saveData_points: str
         optional, provide directory path if you want to save profile data.
         the data will be saved under POI.csv file
 
@@ -426,17 +426,21 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
     save_plot: bool
         True or False
 
-    Fig_outputDir : str
+    Fig_outputDir: str
         if save_plot=True then
         you save your profile plots in interactive html file and jpg image 
 
-     VEL_Scale : str
+    VEL_Scale: str
         'year' or 'month' projects the velocity into provided time-scale
 
-    
+    filename_dates: str
+        provide path to Names.txt file, this file generated at stack_prep step
+        
+        
     Returns
     -------
     Interactive Figures
+    
     '''
      #####################################################################
     # Import needed packages
@@ -476,6 +480,8 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
         import math
         from ipywidgets import interact
         from ipywidgets import widgets
+        import plotly.io as pio
+        pio.renderers.default = 'plotly_mimetype'
         
         df=pd.read_csv("temp.csv")
         
@@ -578,11 +584,14 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
             y_predicted = regression_model.predict(np.array(df.row_count).reshape(-1,1))
         
             if VEL_Scale=='year':
-                rate_change=regression_model.coef_[0]/ delta * 365.0
+                rate_change=regression_model.coef_[0]/delta * 365.0
+                std=np.std(y_predicted)/delta * 365
             elif VEL_Scale=='month':
-                rate_change=regression_model.coef_[0]/delta * 30
+                rate_change=regression_model.coef_[0]/delta * 30.0
+                std=np.std(y_predicted)/delta * 30
             else:
-                rate_change=regression_model.coef_[0]/delta
+                rate_change=regression_model.coef_[0]  #delta is number of days
+                std=np.std(y_predicted)
                 
             # model evaluation
             mse=mean_squared_error(np.array(df.val),y_predicted)
@@ -595,7 +604,8 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
             #print('MSE:',mse)
             rmse=('Root mean squared error: '+ str(math.ceil(rmse*100)/100))
             r2=('R2 score: '+ str(r2))
-            std=("STD: "+ str(math.ceil(np.std(y_predicted)*100)/100)) 
+            
+            std=("STD: "+ str(math.ceil(std*100)/100)) 
             # Create figure
             #fig = go.Figure()
             
@@ -781,7 +791,7 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
             fig.update_layout(hovermode="x unified")
             
            
-            go.FigureWidget(fig.to_dict()).show()
+            f2=go.FigureWidget(fig.to_dict()).show()
            
             
             if save_plot==True:
@@ -792,14 +802,21 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
                 fig.write_html(output_dir + "/" + plot_filename + ".html" )
                 fig.write_image(output_dir + "/" + plot_filename + ".jpeg", scale=1, width=1080, height=300 )
             
-            
-            
+            f2
      
     
    #######################################################################3
-   
+   # Define the file name to check
+    filename_temp_dates = filename_dates 
+    # Check if the file exists in the current working directory
+    if os.path.exists(filename_temp_dates):
+        filename_dates=filename_temp_dates
+        #print(f'The file "{filename_dates}" exists in the current directory.')
+    else:
+        print(f'The file "{filename_dates}" does not exist in the current directory.\n Please enter path to Names.txt to filename_dates variable')
+    
     dnames=[]
-    with open('Names.txt', 'r') as fp:
+    with open(filename_dates, 'r') as fp:
         for line in fp:
             # remove linebreak from a current name
             # linebreak is the last character of each line
@@ -1048,24 +1065,24 @@ def MeanProducts_plot_ts(path_to_shapefile="", dem_path="" , out_folder="Figs_an
 
     path_to_shapefile : str
 
-    dem_path : str 
+    dem_path: str 
 
-    out_folder : str
+    out_folder: str
 
-    color_field : str
+    color_field: str
         geopandas column name
 
-    Set_fig_MinMax : bool
+    Set_fig_MinMax: bool
 
-    MinMaxRange : list
+    MinMaxRange: list
             
-    opacity : float
+    opacity: float
 
-    cmap : str
+    cmap: str
 
-    point_size : str 
+    point_size: str 
 
-    cbar_label : str
+    cbar_label: str
         "mm/year" or "degrees", etc.. based on unit of the data column name in the color_field
 
     Returns

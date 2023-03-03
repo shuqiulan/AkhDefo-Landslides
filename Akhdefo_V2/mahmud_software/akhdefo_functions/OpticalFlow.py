@@ -1,6 +1,9 @@
 def binary_mask(raster_path , shape_path, output_path, file_name ):
     
-    """Function that generates a binary mask from a vector file (shp)
+    """
+    
+    
+    Function that generates a binary mask from a vector file (shp)
     
     Parameters
     ----------
@@ -19,8 +22,13 @@ def binary_mask(raster_path , shape_path, output_path, file_name ):
     
     Returns
     -------
-    Raster Binary Mask in tif format
+    Raster: ndarray
+        Binary Mask in tif format
     
+    
+    
+
+        
     """
     import rasterio
     from rasterio.features import rasterize
@@ -196,6 +204,10 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
     from mpl_toolkits.axes_grid1.inset_locator import inset_axes
     import sys
     import warnings
+    import earthpy.spatial as es
+    import rasterio as rio
+    import gc
+    from scipy import ndimage
     
     if not sys.warnoptions:
         warnings.simplefilter("ignore")
@@ -229,47 +241,48 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
     img_list = [f for f in sorted(os.listdir(Path_working_Directory)) if isfile(join(Path_working_Directory, f))]
     
     if udm_mask_option==True:
-    	udm2_mask_list=[f for f in sorted(os.listdir(Path_UDM2_folder)) if isfile(join(Path_UDM2_folder, f))]
-    
+        udm2_mask_list=[f for f in sorted(os.listdir(Path_UDM2_folder)) if isfile(join(Path_UDM2_folder, f))]
+    else:
+        print("user selected to ignore using mask")
      ####################################################
         #Remove outliers
 
 
-    def is_outlier(points, thresh=1):
-        """
-        Returns a boolean array with True if points are outliers and False 
-        otherwise.
+    # def is_outlier(points, thresh=1):
+    #     """
+    #     Returns a boolean array with True if points are outliers and False 
+    #     otherwise.
 
-        Parameters:
-        -----------
-            points : An numobservations by numdimensions array of observations
-            thresh : The modified z-score to use as a threshold. Observations with
-                a modified z-score (based on the median absolute deviation) greater
-                than this value will be classified as outliers.
+    #     Parameters:
+    #     -----------
+    #         points : An numobservations by numdimensions array of observations
+    #         thresh : The modified z-score to use as a threshold. Observations with
+    #             a modified z-score (based on the median absolute deviation) greater
+    #             than this value will be classified as outliers.
 
-        Returns:
-        --------
-            mask : A numobservations-length boolean array.
+    #     Returns:
+    #     --------
+    #         mask : A numobservations-length boolean array.
 
-        References:
-        ----------
-            Boris Iglewicz and David Hoaglin (1993), "Volume 16: How to Detect and
-            Handle Outliers", The ASQC Basic References in Quality Control:
-            Statistical Techniques, Edward F. Mykytka, Ph.D., Editor. 
-        """
-        if len(points.shape) == 3.5:
-            points = points[:,None]
-        median = np.median(points, axis=0)
-        diff = np.sum((points - median)**2, axis=-1)
-        diff = np.sqrt(diff)
-        med_abs_deviation = np.median(diff)
+    #     References:
+    #     ----------
+    #         Boris Iglewicz and David Hoaglin (1993), "Volume 16: How to Detect and
+    #         Handle Outliers", The ASQC Basic References in Quality Control:
+    #         Statistical Techniques, Edward F. Mykytka, Ph.D., Editor. 
+    #     """
+    #     if len(points.shape) == 3.5:
+    #         points = points[:,None]
+    #     median = np.median(points, axis=0)
+    #     diff = np.sum((points - median)**2, axis=-1)
+    #     diff = np.sqrt(diff)
+    #     med_abs_deviation = np.median(diff)
 
-        modified_z_score = 0.6745 * diff / med_abs_deviation
+    #     modified_z_score = 0.6745 * diff / med_abs_deviation
 
-        return np.where(modified_z_score > thresh, True, False) #modified_z_score > thresh 
+    #     return np.where(modified_z_score > thresh, True, False) #modified_z_score > thresh 
 
     
-    f=1
+    f=int(1)
     for n in range(0, len(img_list)):
         # for item2 in img_list[n+1:]:
         #     for item3 in img_list[n+2:]:
@@ -341,61 +354,69 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         # filepath1, img1_name = os.path.split(item1)
         # filepath2, img2_name = os.path.split(item2)
         # filepath3, img3_name = os.path.split(item3)
-
+        item1=item1[:10]
+        item2=item2[:10]
+        item3=item3[:10]
+        
+        item1=item1.replace("-","")
+        item2=item2.replace("-","")
+        item3=item3.replace("-","")
+        
+        
         img1_name = item1
         img2_name = item2
         img3_name = item3
 
         #2022-08-12.tif
         #20220812.tif
-        if len(img1_name)==12:    
-            Date1_YYYY=img1_name[:-8]
-            Date1_MM=img1_name[4:-6]
-            Date1_DD=img1_name[6:-4]
-        elif len(img1_name)==14:
-            Date1_YYYY=img1_name[:-10]
-            Date1_MM=img1_name[5:-7]
-            Date1_DD=img1_name[8:-4]
+        # if len(img1_name)==12:    
+        #     Date1_YYYY=img1_name[:-8]
+        #     Date1_MM=img1_name[4:-6]
+        #     Date1_DD=img1_name[6:-4]
+        # elif len(img1_name)==14:
+        #     Date1_YYYY=img1_name[:-10]
+        #     Date1_MM=img1_name[5:-7]
+        #     Date1_DD=img1_name[8:-4]
             
-        if len(img2_name)==12:
+        # if len(img2_name)==12:
                
-            Date2_YYYY=img2_name[:-8]
-            Date2_MM=img2_name[4:-6]
-            Date2_DD=img2_name[6:-4]
+        #     Date2_YYYY=img2_name[:-8]
+        #     Date2_MM=img2_name[4:-6]
+        #     Date2_DD=img2_name[6:-4]
             
-        elif len(img2_name)==14:
-            Date2_YYYY=img2_name[:-10]
-            Date2_MM=img2_name[5:-7]
-            Date2_DD=img2_name[8:-4]
+        # elif len(img2_name)==14:
+        #     Date2_YYYY=img2_name[:-10]
+        #     Date2_MM=img2_name[5:-7]
+        #     Date2_DD=img2_name[8:-4]
         
-        if len(img3_name)==12:
+        # if len(img3_name)==12:
              
-            Date3_YYYY=img3_name[:-8]
-            Date3_MM=img3_name[4:-6]
-            Date3_DD=img3_name[6:-4]
+        #     Date3_YYYY=img3_name[:-8]
+        #     Date3_MM=img3_name[4:-6]
+        #     Date3_DD=img3_name[6:-4]
             
-        elif len(img3_name)==14:
-            Date3_YYYY=img3_name[:-10]
-            Date3_MM=img3_name[5:-7]
-            Date3_DD=img3_name[8:-4]
+        # elif len(img3_name)==14:
+        #     Date3_YYYY=img3_name[:-10]
+        #     Date3_MM=img3_name[5:-7]
+        #     Date3_DD=img3_name[8:-4]
             
 
 
         #convert dates to number of days in the year for image1
-        YMD= Date1_YYYY+Date1_MM+Date1_DD
-        date1 = pd.to_datetime(YMD, format='%Y%m%d')
+        #YMD= Date1_YYYY+Date1_MM+Date1_DD
+        date1 = pd.to_datetime(img1_name, format='%Y%m%d')
         new_year_day = pd.Timestamp(year=date1.year, month=1, day=1)
         day_of_the_year_date1 = (date1 - new_year_day).days + 1
 
         #convert dates to number of days in the year for image2
-        YMD= Date2_YYYY+Date2_MM+Date2_DD
-        date2 = pd.to_datetime(YMD, format='%Y%m%d')
+        #YMD= Date2_YYYY+Date2_MM+Date2_DD
+        date2 = pd.to_datetime(img2_name, format='%Y%m%d')
         new_year_day = pd.Timestamp(year=date2.year, month=1, day=1)
         day_of_the_year_date2 = (date2 - new_year_day).days + 1
 
             #convert dates to number of days in the year for image3
-        YMD= Date3_YYYY+Date3_MM+Date3_DD
-        date3 = pd.to_datetime(YMD, format='%Y%m%d')
+        #YMD= Date3_YYYY+Date3_MM+Date3_DD
+        date3 = pd.to_datetime(img3_name, format='%Y%m%d')
         new_year_day = pd.Timestamp(year=date3.year, month=1, day=1)
         day_of_the_year_date3 = (date3 - new_year_day).days + 1
 
@@ -648,7 +669,7 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         flow_y= np.mean(flow_y, axis=0)
         flow_y=flow_y*-1
         if Median_Filter==True:
-            from scipy import ndimage
+            
             flow_x=ndimage.median_filter(flow_x, size=20)
             flow_y=ndimage.median_filter(flow_y, size=20)
     
@@ -698,8 +719,8 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         # flow_x=flow_x/Delta_DD  
         # flow_y=flow_y/Delta_DD
         #Save Flowx and Flow y rasters
-        filename=(str(Date1_YYYY+Date1_MM+Date1_DD) + "-" +
-        str(Date2_YYYY+Date2_MM+Date2_DD)+ "-"+ str(Date3_YYYY+Date3_MM+Date3_DD)+".tif")
+        filename=(str(item1) + "_" +
+        str(item2)+ "_"+ str(item3)+".tif")
         
         print ("Now Processing Triplet Dates: ", filename[:-4])
         
@@ -709,13 +730,10 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
             demfile = r1.read(1)
             meta = r1.meta
         
-        flow_xgr=flow_x /3/ int(Delta_DD) * image_sensor_resolution #convert pixel to cm(mm) and divide by difference of number of days between frame1 and frame3
+        flow_xgr=flow_x / 3/int(Delta_DD) * image_sensor_resolution #convert pixel to cm(mm) and divide by difference of number of days between frame1 and frame3
         flow_ygr=flow_y /3/ int(Delta_DD) * image_sensor_resolution
 
     
-
-        
-
         mag_map1 = np.hypot(flow_xgr, flow_ygr)  # magnitude
         if udm_mask_option==True:
             mag_map1[udm_img1==0]=np.nan
@@ -747,54 +765,54 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         
     
 
-        def interpolate_missing_pixels(
-                image: np.ndarray,
-                mask: np.ndarray,
-                method: str = 'nearest',
-                fill_value: int = 0):
-            """
-            :param image: a 2D image
-            :param mask: a 2D boolean image, True indicates missing values
-            :param method: interpolation method, one of
-                'nearest', 'linear', 'cubic'.
-            :param fill_value: which value to use for filling up data outside the
-                convex hull of known pixel values.
-                Default is 0, Has no effect for 'nearest'.
-            :return: the image with missing values interpolated
-            """
+        # def interpolate_missing_pixels(
+        #         image: np.ndarray,
+        #         mask: np.ndarray,
+        #         method: str = 'nearest',
+        #         fill_value: int = 0):
+        #     """
+        #     :param image: a 2D image
+        #     :param mask: a 2D boolean image, True indicates missing values
+        #     :param method: interpolation method, one of
+        #         'nearest', 'linear', 'cubic'.
+        #     :param fill_value: which value to use for filling up data outside the
+        #         convex hull of known pixel values.
+        #         Default is 0, Has no effect for 'nearest'.
+        #     :return: the image with missing values interpolated
+        #     """
             
 
-            h, w = image.shape[:2]
-            xx, yy = np.meshgrid(np.arange(w), np.arange(h))
+        #     h, w = image.shape[:2]
+        #     xx, yy = np.meshgrid(np.arange(w), np.arange(h))
 
-            known_x = xx[~mask]
-            known_y = yy[~mask]
-            known_v = image[~mask]
-            missing_x = xx[mask]
-            missing_y = yy[mask]
+        #     known_x = xx[~mask]
+        #     known_y = yy[~mask]
+        #     known_v = image[~mask]
+        #     missing_x = xx[mask]
+        #     missing_y = yy[mask]
 
 
-            #######
+        #     #######
 
-            xvalues = np.linspace(int(1), int(1+w), w) 
-            yvalues = np.linspace(int(1), int(1+h), h)
+        #     xvalues = np.linspace(int(1), int(1+w), w) 
+        #     yvalues = np.linspace(int(1), int(1+h), h)
 
-            missing_x, missing_y = np.meshgrid(xvalues, yvalues)
+        #     missing_x, missing_y = np.meshgrid(xvalues, yvalues)
             
 
 
 
-            interp_values = interpolate.griddata(
-                (known_x, known_y), known_v, (missing_x, missing_y),
-                method=method, fill_value=fill_value
-            )
+        #     interp_values = interpolate.griddata(
+        #         (known_x, known_y), known_v, (missing_x, missing_y),
+        #         method=method, fill_value=fill_value
+        #     )
 
-            # interp_image = image.copy()
-            # interp_image[missing_y, missing_x] = interp_values
+        #     # interp_image = image.copy()
+        #     # interp_image[missing_y, missing_x] = interp_values
 
-            interp_image=interp_values
+        #     interp_image=interp_values
 
-            return interp_image
+        #     return interp_image
 
         ##Reapply bad mask
 
@@ -1040,26 +1058,33 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
                 metadata['bandstats']['stdev'] = round(stats[3],2)
                 
                 array = dataset.GetRasterBand(1).ReadAsArray(0,0,metadata['array_cols'],metadata['array_rows']).astype('float32')
-                array[array==(metadata['noDataValue'])]=np.nan
+                array[array==(metadata['noDataValue'])]=np.nan 
                 # array = array/metadata['scaleFactor']
                 return array, metadata
             
             elif metadata['bands'] > 1:
                 print('More than one band ... fix function for case of multiple bands')
 
-        def hillshade(array,azimuth,angle_altitude):
-            azimuth = 360.0 - azimuth 
-            x, y = np.gradient(array)
-            slope = np.pi/2. - np.arctan(np.sqrt(x*x + y*y))
-            aspect = np.arctan2(-x, y)
-            azimuthrad = azimuth*np.pi/180.
-            altituderad = angle_altitude*np.pi/180.
-            shaded = np.sin(altituderad)*np.sin(slope) + np.cos(altituderad)*np.cos(slope)*np.cos((azimuthrad - np.pi/2.) - aspect)
+        # def hillshade(array,azimuth,angle_altitude):
+        #     azimuth = 360.0 - azimuth 
+        #     x, y = np.gradient(array)
+        #     slope = np.pi/2. - np.arctan(np.sqrt(x*x + y*y))
+        #     aspect = np.arctan2(-x, y)
+        #     azimuthrad = azimuth*np.pi/180.
+        #     altituderad = angle_altitude*np.pi/180.
+        #     shaded = np.sin(altituderad)*np.sin(slope) + np.cos(altituderad)*np.cos(slope)*np.cos((azimuthrad - np.pi/2.) - aspect)
 
-            return 255*(shaded + 1)/2
+           # return 255*(shaded + 1)/2
 
         
-
+        
+        
+        # # Open the DEM with Rasterio
+        # with rio.open(Path_to_DEMFile) as src:
+        #     elevation = src.read(1)
+        #     # Set masked values to np.nan
+        #     elevation[elevation < 0] = np.nan
+        
         
         
         dtm_array, dtm_metadata = raster2array(Path_to_DEMFile)
@@ -1082,7 +1107,8 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         # srcv_int, src_meta = raster2array(vname_int)
         
         # Use hillshade function on a DTM Geotiff
-        hs_array = hillshade(dtm_array,335,45)
+        #hs_array = hillshade(dtm_array,335,45)
+        hs_array=es.hillshade(dtm_array)
         
         def plot(hillshade, velocity, filename="" , title="EW Velocity", outputfolder=r"" , Delta_DD=1, cmap=cmap, masked=False, cbar_unit="mm/day"):
             
@@ -1148,7 +1174,7 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
             # title
             
             #set the subtitle
-            dates_title="Dates:" +str(item1[:-4]) + "-"+ str(item2[:-4]) + "-"+ str(item3[:-4])
+            dates_title="Dates:" +str(item1[:10]) + "-"+ str(item2[:10]) + "-"+ str(item3[:10])
         
             ####
             # ax1=sb.imgplot(hillshade, ax=ax[1],  cmap="gray", cbar=False)
@@ -1169,16 +1195,19 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
             bbox=dict(facecolor='red', alpha=0.5))   
 
 
-            plt.savefig(outputfolder + "/" + figname, dpi=300)
+            plt.savefig(outputfolder + "/" + figname)
 
             if show_figure==True:
                 plt.show()
             else:
                 plt.close(fig)
+            del hillshade
+            del velocity
+            gc.collect()
 
-        _1=plot(hs_array, srcx, filename, title="EW Mean-Velocity", outputfolder="EW", Delta_DD= int(Delta_DD), cmap=cmap , masked=True, cbar_unit="mm/day" )
-        _2=plot(hs_array, srcy, filename, title="NS Mean-Velocity", outputfolder="NS" , Delta_DD= int(Delta_DD), cmap=cmap, masked=True, cbar_unit="mm/day")
-        _3=plot(hs_array, srcv, filename, title="2D Mean-Velocity", outputfolder="2D" , Delta_DD= int(Delta_DD),  cmap=cmap, masked=True, cbar_unit="mm/day")
+        _1=plot(hs_array, srcx, filename, title="EW Mean-Velocity", outputfolder="EW", Delta_DD= int(Delta_DD), cmap=cmap , masked=True, cbar_unit="mm" )
+        _2=plot(hs_array, srcy, filename, title="NS Mean-Velocity", outputfolder="NS" , Delta_DD= int(Delta_DD), cmap=cmap, masked=True, cbar_unit="mm")
+        _3=plot(hs_array, srcv, filename, title="2D Mean-Velocity", outputfolder="2D" , Delta_DD= int(Delta_DD),  cmap=cmap, masked=True, cbar_unit="mm")
 
     
 
@@ -1201,8 +1230,30 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         # img = ax.imshow(S13)
         # fig.colorbar(img, ax=ax) 
         # plt.show()
-
-
+        del hs_array
+        del S12
+        del S13
+        del shifts12
+        del shifts13
+        del dtm_array
+        del flow1
+        del flow2
+        del flow_x
+        del flow_y
+        del flow_x1
+        del flow_x2
+        del flow_y1
+        del flow_y2
+        del flow_xgr
+        del flow_ygr
+        del srcx
+        del srcy
+        del srcv
+        del xname
+        del yname
+        del vname
+        
+        
         f=f+1
         
         # plt.imshow(img3, cmap="gray")
@@ -1215,7 +1266,7 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
         print("Finished Processing Triplet Dates: ", filename[:-4])
         os.system("printf '\033c'")
         
-        
+        gc.collect()
         
         
         

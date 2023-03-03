@@ -2,7 +2,8 @@ Documentation Summary
 =====================
 .. autosummary::
    :toctree: generated
-
+   
+   akhdefo_functions.read_data_prep
    akhdefo_functions.unzip
    akhdefo_functions.copyImage_Data
    akhdefo_functions.copyUDM2_Mask_Data

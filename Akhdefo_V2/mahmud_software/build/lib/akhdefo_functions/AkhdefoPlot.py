@@ -379,7 +379,7 @@ def plot_stackNetwork(src_folder=r"", output_folder=r"" , cmap='tab20', date_plo
 
 def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity=0.75, cmap="turbo",
                     Set_fig_MinMax=True, MinMaxRange=[-50,50] , color_field='VEL', user_data_points="", 
-                    path_saveData_points="" , save_plot=False, Fig_outputDir='' , VEL_Scale='year'):
+                    path_saveData_points="" , save_plot=False, Fig_outputDir='' , VEL_Scale='year', filename_dates=''):
     '''
     This program used for analysis time-series velocity profiles
 
@@ -430,13 +430,17 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
         if save_plot=True then
         you save your profile plots in interactive html file and jpg image 
 
-     VEL_Scale: str
+    VEL_Scale: str
         'year' or 'month' projects the velocity into provided time-scale
 
-    
+    filename_dates: str
+        provide path to Names.txt file, this file generated at stack_prep step
+        
+        
     Returns
     -------
     Interactive Figures
+    
     '''
      #####################################################################
     # Import needed packages
@@ -580,11 +584,14 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
             y_predicted = regression_model.predict(np.array(df.row_count).reshape(-1,1))
         
             if VEL_Scale=='year':
-                rate_change=regression_model.coef_[0]/ delta * 365.0
+                rate_change=regression_model.coef_[0]/delta * 365.0
+                std=np.std(y_predicted)/delta * 365
             elif VEL_Scale=='month':
-                rate_change=regression_model.coef_[0]/delta * 30
+                rate_change=regression_model.coef_[0]/delta * 30.0
+                std=np.std(y_predicted)/delta * 30
             else:
-                rate_change=regression_model.coef_[0]/delta
+                rate_change=regression_model.coef_[0]  #delta is number of days
+                std=np.std(y_predicted)
                 
             # model evaluation
             mse=mean_squared_error(np.array(df.val),y_predicted)
@@ -597,7 +604,8 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
             #print('MSE:',mse)
             rmse=('Root mean squared error: '+ str(math.ceil(rmse*100)/100))
             r2=('R2 score: '+ str(r2))
-            std=("STD: "+ str(math.ceil(np.std(y_predicted)*100)/100)) 
+            
+            std=("STD: "+ str(math.ceil(std*100)/100)) 
             # Create figure
             #fig = go.Figure()
             
@@ -798,9 +806,17 @@ def akhdefo_ts_plot(path_to_shapefile=r"", dem_path=r"", point_size=1.0, opacity
      
     
    #######################################################################3
-   
+   # Define the file name to check
+    filename_temp_dates = filename_dates 
+    # Check if the file exists in the current working directory
+    if os.path.exists(filename_temp_dates):
+        filename_dates=filename_temp_dates
+        #print(f'The file "{filename_dates}" exists in the current directory.')
+    else:
+        print(f'The file "{filename_dates}" does not exist in the current directory.\n Please enter path to Names.txt to filename_dates variable')
+    
     dnames=[]
-    with open('Names.txt', 'r') as fp:
+    with open(filename_dates, 'r') as fp:
         for line in fp:
             # remove linebreak from a current name
             # linebreak is the last character of each line

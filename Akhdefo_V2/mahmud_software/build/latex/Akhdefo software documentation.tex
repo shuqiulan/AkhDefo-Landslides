@@ -229,7 +229,7 @@
 
 
 \title{Akhdefo software documentation}
-\date{Feb 09, 2023}
+\date{Mar 03, 2023}
 \release{2023}
 \author{Mahmud Mustafa Muhammad}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -266,6 +266,15 @@ AKh\sphinxhyphen{}Defo is combination of two different words 1) Akh in Kurdish l
 Muhammad M, Williams\sphinxhyphen{}Jones G, Stead D, Tortini R, Falorni G and Donati D (2022) Applications of ImageBased Computer Vision for Remote Surveillance of Slope Instability.Front. Earth Sci. 10:909078. doi: 10.3389/feart.2022.909078
 
 
+\chapter{Documentation Website}
+\label{\detokenize{README:documentation-website}}
+
+\chapter{Tutorials}
+\label{\detokenize{README:tutorials}}
+
+\chapter{Latest Version of AkhDefo}
+\label{\detokenize{README:latest-version-of-akhdefo}}
+
 \chapter{Updates:}
 \label{\detokenize{README:updates}}\begin{itemize}
 \item {} 
@@ -278,7 +287,7 @@ Akhdefo now can run on the cloud for real\sphinxhyphen{}time processing
 
 \item {} 
 \sphinxAtStartPar
-Akhdefo now consist of 12 Modules that performs end to end python\sphinxhyphen{}based GIS and Image Processing and Custumized Figure generation
+Akhdefo now consist of 21 Modules that performs end to end python\sphinxhyphen{}based GIS and Image Processing and Custumized Figure generation
 
 \end{itemize}
 
@@ -401,6 +410,13 @@ Akhdefo now consist of 12 Modules that performs end to end python\sphinxhyphen{}
 \sphinxtoprule
 \sphinxtableatstartofbodyhook
 \sphinxAtStartPar
+{\hyperref[\detokenize{generated/akhdefo_functions.read_data_prep:akhdefo_functions.read_data_prep}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{akhdefo\_functions.read\_data\_prep}}}}} (\autopageref*{\detokenize{generated/akhdefo_functions.read_data_prep:akhdefo_functions.read_data_prep}})({[}zip\_dir, ...{]})
+&
+\sphinxAtStartPar
+This program reads planetlabs orthoimagery in zipfolder format create different directory for the raster images and corresponding unusable data masks(udm) the udm mask include snow, haze, etc.
+\\
+\sphinxhline
+\sphinxAtStartPar
 {\hyperref[\detokenize{generated/akhdefo_functions.unzip:akhdefo_functions.unzip}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{akhdefo\_functions.unzip}}}}} (\autopageref*{\detokenize{generated/akhdefo_functions.unzip:akhdefo_functions.unzip}})(zipdir, dst\_dir)
 &
 \sphinxAtStartPar
@@ -439,7 +455,7 @@ This program used to clip multiple  raster files
 {\hyperref[\detokenize{generated/akhdefo_functions.Mosaic:akhdefo_functions.Mosaic}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{akhdefo\_functions.Mosaic}}}}} (\autopageref*{\detokenize{generated/akhdefo_functions.Mosaic:akhdefo_functions.Mosaic}})({[}...{]})
 &
 \sphinxAtStartPar
-This program mosiacs raster images in geotif format as well grab dates the satellite image taken for further processing.
+This program mosiacs raster images in geotif format as well as grab dates of the satellite image taken for further processing.
 \\
 \sphinxhline
 \sphinxAtStartPar
@@ -547,6 +563,50 @@ Function that generates a binary mask from a vector file (shp)
 \sphinxstepscope
 
 
+\subsection{akhdefo\_functions.read\_data\_prep}
+\label{\detokenize{generated/akhdefo_functions.read_data_prep:akhdefo-functions-read-data-prep}}\label{\detokenize{generated/akhdefo_functions.read_data_prep::doc}}\index{read\_data\_prep() (in module akhdefo\_functions)@\spxentry{read\_data\_prep()}\spxextra{in module akhdefo\_functions}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{generated/akhdefo_functions.read_data_prep:akhdefo_functions.read_data_prep}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{read\_data\_prep}}}{\emph{\DUrole{n}{zip\_dir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{image\_dir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}image\_dir\textquotesingle{}}}, \emph{\DUrole{n}{udm\_mask\_dir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}udm\_mask\_dir\textquotesingle{}}}}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+This program reads planetlabs orthoimagery in zipfolder format
+create different directory for the raster images and corresponding unusable data masks(udm)
+the udm mask include snow, haze, etc… see planetslabs udm mask types for further details
+
+
+\subsubsection{Parameters}
+\label{\detokenize{generated/akhdefo_functions.read_data_prep:parameters}}\begin{description}
+\sphinxlineitem{zip\_dir: str}
+\sphinxAtStartPar
+path to directory contains all the zipfiles
+
+\sphinxlineitem{image\_dir: str}
+\sphinxAtStartPar
+path to folder contains only raster data images
+
+\sphinxlineitem{udm\_mask\_dir: str}
+\sphinxAtStartPar
+path to folder contains only udm mask ratsers
+
+\end{description}
+
+
+\subsubsection{Returns}
+\label{\detokenize{generated/akhdefo_functions.read_data_prep:returns}}
+\sphinxAtStartPar
+unzip folder
+image\_dir
+udm\_mask\_dir
+
+\end{fulllineitems}
+
+
+\sphinxstepscope
+
+
 \subsection{akhdefo\_functions.unzip}
 \label{\detokenize{generated/akhdefo_functions.unzip:akhdefo-functions-unzip}}\label{\detokenize{generated/akhdefo_functions.unzip::doc}}\index{unzip() (in module akhdefo\_functions)@\spxentry{unzip()}\spxextra{in module akhdefo\_functions}}
 
@@ -561,11 +621,11 @@ This program unzips all the zip products into one folder
 
 \subsubsection{Parameters}
 \label{\detokenize{generated/akhdefo_functions.unzip:parameters}}\begin{description}
-\sphinxlineitem{zipdir: str}
+\sphinxlineitem{zipdir}{[}str{]}
 \sphinxAtStartPar
 path to directory contains all the zipfiles
 
-\sphinxlineitem{dst\_dir: str}
+\sphinxlineitem{dst\_dir}{[}str{]}
 \sphinxAtStartPar
 path to destination folder to copy all unzipped products.
 
@@ -598,10 +658,10 @@ This program copy all the raster images.
 \subsubsection{Parameters}
 \label{\detokenize{generated/akhdefo_functions.copyImage_Data:parameters}}
 \sphinxAtStartPar
-path\_to\_unzipped\_folders: str
+path\_to\_unzipped\_folders : str
 
 \sphinxAtStartPar
-Path\_to\_raster\_tifs: str
+Path\_to\_raster\_tifs : str
 
 
 \subsubsection{Returns}
@@ -629,14 +689,14 @@ This program copy all  raster masks.
 
 \subsubsection{Parameters}
 \label{\detokenize{generated/akhdefo_functions.copyUDM2_Mask_Data:parameters}}\begin{description}
-\sphinxlineitem{path\_to\_unzipped\_folders: str}
+\sphinxlineitem{path\_to\_unzipped\_folders}{[}str{]}
 \sphinxAtStartPar
 file extension must end with udm2\_clip.tif
 
 \end{description}
 
 \sphinxAtStartPar
-Path\_to\_UDM2raster\_tifs: str
+Path\_to\_UDM2raster\_tifs : str
 
 
 \subsubsection{Returns}
@@ -748,11 +808,11 @@ cropped raster files
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{generated/akhdefo_functions.Mosaic:akhdefo_functions.Mosaic}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{Mosaic}}}{\emph{\DUrole{n}{Path\_to\_WorkingDir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{output\_MosaicDir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{img\_mode}\DUrole{o}{=}\DUrole{default_value}{0}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{Mosaic}}}{\emph{\DUrole{n}{Path\_to\_WorkingDir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{output\_MosaicDir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{img\_mode}\DUrole{o}{=}\DUrole{default_value}{1}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-This program mosiacs raster images in geotif format as well grab dates the satellite image taken for further processing. 
-The current version only supports Planet Labs SurfaceReflectance products.
+This program mosiacs raster images in geotif format as well as grab dates of the satellite image taken for further processing. 
+The current version only supports PlanetLabs ortho SurfaceReflectance products.
 
 
 \subsubsection{Parameters}
@@ -765,8 +825,10 @@ output\_MosaicDir: str
 \begin{description}
 \sphinxlineitem{img\_mode: int}
 \sphinxAtStartPar
-if img\_mode=0 the the programs mosaics only the raster images. 
-if img\_mode=1 the program mosiacs only mask rasters
+if img\_mode=0 the the programs mosaics only the udm maskraster images.
+
+\sphinxAtStartPar
+if img\_mode=1 the program mosiacs only  rasters data images
 
 \end{description}
 
@@ -1000,7 +1062,7 @@ Figure
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{generated/akhdefo_functions.stackprep:akhdefo_functions.stackprep}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{stackprep}}}{\emph{\DUrole{n}{path\_to\_flowxnFolder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{path\_toFlowynFolder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{dem}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{print\_list}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{start\_date}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}YYYYMMDD\textquotesingle{}}}, \emph{\DUrole{n}{end\_date}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}YYYYMMDD\textquotesingle{}}}, \emph{\DUrole{n}{output\_stackedFolder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{VEL\_scale}\DUrole{o}{=}\DUrole{default_value}{(\textquotesingle{}month\textquotesingle{}, \textquotesingle{}year\textquotesingle{})}}, \emph{\DUrole{n}{xres}\DUrole{o}{=}\DUrole{default_value}{3.125}}, \emph{\DUrole{n}{yres}\DUrole{o}{=}\DUrole{default_value}{3.125}}, \emph{\DUrole{n}{Velocity\_shapeFile}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{Resampling}\DUrole{o}{=}\DUrole{default_value}{True}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{stackprep}}}{\emph{\DUrole{n}{path\_to\_flowxnFolder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{path\_toFlowynFolder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{dem}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{print\_list}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{start\_date}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}YYYYMMDD\textquotesingle{}}}, \emph{\DUrole{n}{end\_date}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}YYYYMMDD\textquotesingle{}}}, \emph{\DUrole{n}{output\_stackedFolder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{VEL\_scale}\DUrole{o}{=}\DUrole{default_value}{(\textquotesingle{}month\textquotesingle{}, \textquotesingle{}year\textquotesingle{})}}, \emph{\DUrole{n}{xres}\DUrole{o}{=}\DUrole{default_value}{3.125}}, \emph{\DUrole{n}{yres}\DUrole{o}{=}\DUrole{default_value}{3.125}}, \emph{\DUrole{n}{Velocity\_shapeFile}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{Resampling}\DUrole{o}{=}\DUrole{default_value}{True}}, \emph{\DUrole{n}{Raster\_stack\_correction}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 This program collects velocity candiate points for time\sphinxhyphen{}series analysis.
@@ -1041,13 +1103,15 @@ output\_stackedFolder: str
 \sphinxAtStartPar
 “month” or “year”) at this stage you can ignore this option; will be removed from future versions
 
+\sphinxlineitem{xres: float}
+\sphinxAtStartPar
+x resolution
+
+\sphinxlineitem{yres: float}
+\sphinxAtStartPar
+y resolution
+
 \end{description}
-
-\sphinxAtStartPar
-xres: float
-
-\sphinxAtStartPar
-yres: float
 
 \sphinxAtStartPar
 Velocity\_shapeFile: bool
@@ -1056,14 +1120,16 @@ Velocity\_shapeFile: bool
 \sphinxAtStartPar
 set to True if need to generate points for temporal deformation analysis
 \end{quote}
-
-\sphinxAtStartPar
-Resampling : bool
-\begin{quote}
-
+\begin{description}
+\sphinxlineitem{Resampling: bool}
 \sphinxAtStartPar
 if True reduce number of measurement points but faster processing
-\end{quote}
+
+\sphinxlineitem{Raster\_stack\_correction: bool}
+\sphinxAtStartPar
+if True this feature computes the linearly interpolated pixel values between subsequent time\sphinxhyphen{}slices(bands) in raster stack
+
+\end{description}
 
 
 \subsubsection{Returns}
@@ -1086,7 +1152,7 @@ This file include candiate velocity points for timeseries analysis
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{generated/akhdefo_functions.Time_Series:akhdefo_functions.Time_Series}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{Time\_Series}}}{\emph{\DUrole{n}{stacked\_raster\_EW}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{stacked\_raster\_NS}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{velocity\_points}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{dates\_name}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{output\_folder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{outputFilename}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{rasteriz\_mean\_products}\DUrole{o}{=}\DUrole{default_value}{True}}, \emph{\DUrole{n}{std}\DUrole{o}{=}\DUrole{default_value}{1}}, \emph{\DUrole{n}{VEL\_Scale}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}year\textquotesingle{}}}, \emph{\DUrole{n}{velocity\_mode}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}mean\textquotesingle{}}}, \emph{\DUrole{n}{master\_reference}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{Time\_Series}}}{\emph{\DUrole{n}{stacked\_raster\_EW}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{stacked\_raster\_NS}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{velocity\_points}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{dates\_name}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{output\_folder}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{outputFilename}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{std}\DUrole{o}{=}\DUrole{default_value}{1}}, \emph{\DUrole{n}{VEL\_Scale}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}year\textquotesingle{}}}, \emph{\DUrole{n}{velocity\_mode}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}mean\textquotesingle{}}}, \emph{\DUrole{n}{master\_reference}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 This program uses candiate velocity points from stackprep function and performs linear interpolation in time\sphinxhyphen{}domain to calibrate
@@ -1096,6 +1162,7 @@ stacked velocity. Additionally produces corrected timeseries velocity(daily) in 
 \subsubsection{Parameters}
 \label{\detokenize{generated/akhdefo_functions.Time_Series:parameters}}
 \sphinxAtStartPar
+b   
 stacked\_raster\_EW: str
 
 \sphinxAtStartPar
@@ -1149,7 +1216,7 @@ Time\sphinxhyphen{}series shape file of velocity and direction EW, NS, and 2D(re
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{generated/akhdefo_functions.akhdefo_ts_plot:akhdefo_functions.akhdefo_ts_plot}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{akhdefo\_ts\_plot}}}{\emph{\DUrole{n}{path\_to\_shapefile}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{dem\_path}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{point\_size}\DUrole{o}{=}\DUrole{default_value}{1.0}}, \emph{\DUrole{n}{opacity}\DUrole{o}{=}\DUrole{default_value}{0.75}}, \emph{\DUrole{n}{cmap}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}turbo\textquotesingle{}}}, \emph{\DUrole{n}{Set\_fig\_MinMax}\DUrole{o}{=}\DUrole{default_value}{True}}, \emph{\DUrole{n}{MinMaxRange}\DUrole{o}{=}\DUrole{default_value}{{[}\sphinxhyphen{}50, 50{]}}}, \emph{\DUrole{n}{color\_field}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}VEL\textquotesingle{}}}, \emph{\DUrole{n}{user\_data\_points}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{path\_saveData\_points}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{save\_plot}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{Fig\_outputDir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{VEL\_Scale}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}year\textquotesingle{}}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{akhdefo\_functions.}}\sphinxbfcode{\sphinxupquote{akhdefo\_ts\_plot}}}{\emph{\DUrole{n}{path\_to\_shapefile}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{dem\_path}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{point\_size}\DUrole{o}{=}\DUrole{default_value}{1.0}}, \emph{\DUrole{n}{opacity}\DUrole{o}{=}\DUrole{default_value}{0.75}}, \emph{\DUrole{n}{cmap}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}turbo\textquotesingle{}}}, \emph{\DUrole{n}{Set\_fig\_MinMax}\DUrole{o}{=}\DUrole{default_value}{True}}, \emph{\DUrole{n}{MinMaxRange}\DUrole{o}{=}\DUrole{default_value}{{[}\sphinxhyphen{}50, 50{]}}}, \emph{\DUrole{n}{color\_field}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}VEL\textquotesingle{}}}, \emph{\DUrole{n}{user\_data\_points}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{path\_saveData\_points}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{save\_plot}\DUrole{o}{=}\DUrole{default_value}{False}}, \emph{\DUrole{n}{Fig\_outputDir}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}, \emph{\DUrole{n}{VEL\_Scale}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}year\textquotesingle{}}}, \emph{\DUrole{n}{filename\_dates}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 This program used for analysis time\sphinxhyphen{}series velocity profiles
@@ -1206,18 +1273,18 @@ the data will be saved under POI.csv file
 \sphinxAtStartPar
 True or False
 
-\sphinxlineitem{Fig\_outputDir: str}\begin{quote}
-
+\sphinxlineitem{Fig\_outputDir: str}
 \sphinxAtStartPar
 if save\_plot=True then
 you save your profile plots in interactive html file and jpg image
-\end{quote}
-\begin{description}
+
 \sphinxlineitem{VEL\_Scale: str}
 \sphinxAtStartPar
 ‘year’ or ‘month’ projects the velocity into provided time\sphinxhyphen{}scale
 
-\end{description}
+\sphinxlineitem{filename\_dates: str}
+\sphinxAtStartPar
+provide path to Names.txt file, this file generated at stack\_prep step
 
 \end{description}
 
@@ -1622,9 +1689,12 @@ Name of the file.
 
 
 \subsubsection{Returns}
-\label{\detokenize{generated/akhdefo_functions.binary_mask:returns}}
+\label{\detokenize{generated/akhdefo_functions.binary_mask:returns}}\begin{description}
+\sphinxlineitem{Raster: ndarray}
 \sphinxAtStartPar
-Raster Binary Mask in tif format
+Binary Mask in tif format
+
+\end{description}
 
 \end{fulllineitems}
 
@@ -1953,10 +2023,10 @@ strat working on folder data/image\PYGZus{}raster\PYGZus{}tifs
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_12}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_1}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_21}.png}
+\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_2}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -1965,10 +2035,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_42}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_4}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_51}.png}
+\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_5}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -1977,10 +2047,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_72}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_7}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_81}.png}
+\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_8}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -1989,10 +2059,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_102}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_10}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_111}.png}
+\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_11}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2001,10 +2071,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_131}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_13}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_141}.png}
+\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_14}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2013,10 +2083,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_161}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_16}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_171}.png}
+\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_17}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2025,10 +2095,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_191}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_19}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_201}.png}
+\sphinxincludegraphics[width=1005\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_20}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2037,10 +2107,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_221}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_22}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_231}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_23}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2049,10 +2119,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_251}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_25}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_261}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_26}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2061,10 +2131,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_281}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_28}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_291}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_29}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2073,10 +2143,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_311}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_31}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_321}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_32}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2085,10 +2155,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_341}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_34}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_351}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_35}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2097,10 +2167,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_371}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_37}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_381}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_38}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2109,10 +2179,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_401}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_40}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_411}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_41}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2121,10 +2191,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_431}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_43}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_441}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_44}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2133,10 +2203,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_461}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_46}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_471}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_47}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2145,10 +2215,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_491}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_49}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_501}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_50}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2157,10 +2227,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_521}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_52}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_531}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_53}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2169,10 +2239,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_551}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_55}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_561}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_56}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2181,10 +2251,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_581}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_58}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_591}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_59}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2193,10 +2263,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_611}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_61}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_621}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_62}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2205,10 +2275,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_641}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_64}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_651}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_65}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2217,10 +2287,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_671}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_67}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_681}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_68}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2229,10 +2299,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_701}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_70}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_711}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_71}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2241,10 +2311,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_731}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_73}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_741}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_74}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2253,10 +2323,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_761}.png}
+\sphinxincludegraphics[width=2390\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_76}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_771}.png}
+\sphinxincludegraphics[width=1069\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_77}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2265,10 +2335,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_791}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_79}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_801}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_80}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2277,10 +2347,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_821}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_82}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_831}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_83}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2289,10 +2359,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_851}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_85}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_861}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_86}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2301,10 +2371,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_881}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_88}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_891}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_89}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2313,10 +2383,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_911}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_91}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_921}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_92}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2325,10 +2395,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_941}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_94}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_951}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_95}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2337,10 +2407,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_971}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_97}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_981}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_98}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2349,10 +2419,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_1001}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_100}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_1011}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_101}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2361,10 +2431,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_1031}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_103}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_1041}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_104}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2373,10 +2443,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_1061}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_106}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_1071}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_107}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2385,10 +2455,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_1091}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_109}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_1101}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_110}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2397,10 +2467,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_1121}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_112}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_1131}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_113}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -2409,10 +2479,10 @@ process is completed
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_1151}.png}
+\sphinxincludegraphics[width=2173\sphinxpxdimen,height=1633\sphinxpxdimen]{{output_4_115}.png}
 
 \sphinxAtStartPar
-\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_1161}.png}
+\sphinxincludegraphics[width=377\sphinxpxdimen,height=819\sphinxpxdimen]{{output_4_116}.png}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 process is completed
@@ -8675,39 +8745,26 @@ This notebook plots Time\sphinxhyphen{}series displacement profiles
 Please run thid notebook file inside Visual Studio Code
 
 \begin{sphinxuseclass}{nbinput}
+\begin{sphinxuseclass}{nblast}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{matplotlib} widget
+\llap{\color{nbsphinxin}[ ]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{c+c1}{\PYGZsh{}\PYGZpc{}matplotlib notebook}
 \PYG{k+kn}{from}  \PYG{n+nn}{akhdefo\PYGZus{}functions} \PYG{k+kn}{import} \PYG{n}{akhdefo\PYGZus{}ts\PYGZus{}plot}
-\PYG{k+kn}{from} \PYG{n+nn}{IPython}\PYG{n+nn}{.}\PYG{n+nn}{core}\PYG{n+nn}{.}\PYG{n+nn}{display} \PYG{k+kn}{import} \PYG{n}{display}\PYG{p}{,} \PYG{n}{HTML}
+\PYG{c+c1}{\PYGZsh{}from IPython.core.display import display, HTML}
 \PYG{c+c1}{\PYGZsh{}\PYGZpc{}matplotlib widget}
 
 \end{sphinxVerbatim}
 }
 
 \end{sphinxuseclass}
-\begin{sphinxuseclass}{nboutput}
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
 {
-
-\kern-\sphinxverbatimsmallskipamount\kern-\baselineskip
-\kern+\FrameHeightAdjust\kern-\fboxrule
-\vspace{\nbsphinxcodecellspacing}
-
-\sphinxsetup{VerbatimColor={named}{nbsphinx-stderr}}
-\begin{sphinxuseclass}{output_area}
-\begin{sphinxuseclass}{stderr}
-
-
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-C:\textbackslash{}Users\textbackslash{}Mahmud\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Temp\textbackslash{}ipykernel\_63916\textbackslash{}3676105968.py:3: DeprecationWarning: Importing display from IPython.core.display is deprecated since IPython 7.14, please import from IPython display
-  from IPython.core.display import display, HTML
+\llap{\color{nbsphinxin}[1]:\,\hspace{\fboxrule}\hspace{\fboxsep}}\PYG{o}{\PYGZpc{}}\PYG{k}{matplotlib} widget
+\PYG{k+kn}{from} \PYG{n+nn}{akhdefo\PYGZus{}functions} \PYG{k+kn}{import} \PYG{n}{akhdefo\PYGZus{}ts\PYGZus{}plot}
 \end{sphinxVerbatim}
-
-
-
-\end{sphinxuseclass}
-\end{sphinxuseclass}
 }
 
 \end{sphinxuseclass}
@@ -8715,10 +8772,10 @@ C:\textbackslash{}Users\textbackslash{}Mahmud\textbackslash{}AppData\textbacksla
 \begin{sphinxuseclass}{nbinput}
 {
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\llap{\color{nbsphinxin}[3]:\,\hspace{\fboxrule}\hspace{\fboxsep}}
+\llap{\color{nbsphinxin}[2]:\,\hspace{\fboxrule}\hspace{\fboxsep}}
 \PYG{n}{akhdefo\PYGZus{}ts\PYGZus{}plot}\PYG{p}{(}\PYG{n}{path\PYGZus{}to\PYGZus{}shapefile}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{stack\PYGZus{}data/TS/TS\PYGZus{}EW\PYGZus{}20220812\PYGZus{}to\PYGZus{}20221016\PYGZus{}velocity.shp}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{dem\PYGZus{}path}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{data/dem\PYGZus{}aoi.tif}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{point\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{opacity}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}
                   \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{RdYlBu\PYGZus{}r}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{n}{Set\PYGZus{}fig\PYGZus{}MinMax}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{MinMaxRange}\PYG{o}{=}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{40}\PYG{p}{,}\PYG{l+m+mi}{40}\PYG{p}{]} \PYG{p}{,} \PYG{n}{color\PYGZus{}field}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{VEL}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{path\PYGZus{}saveData\PYGZus{}points}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{data/stack\PYGZus{}data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{save\PYGZus{}plot}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
-                  \PYG{n}{Fig\PYGZus{}outputDir}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{stack\PYGZus{}data/TS\PYGZus{}profiles}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{,} \PYG{n}{VEL\PYGZus{}Scale}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{year}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+                  \PYG{n}{Fig\PYGZus{}outputDir}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TS\PYGZus{}profiles}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{,} \PYG{n}{VEL\PYGZus{}Scale}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{year}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
 }
 
@@ -8734,7 +8791,7 @@ C:\textbackslash{}Users\textbackslash{}Mahmud\textbackslash{}AppData\textbacksla
 
 \begin{sphinxuseclass}{output_area}
 \begin{sphinxuseclass}{}
-\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{notebooks_akhdefo_ts_plot_3_0}.png}
+\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{notebooks_akhdefo_ts_plot_4_0}.png}
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
@@ -8742,22 +8799,6 @@ C:\textbackslash{}Users\textbackslash{}Mahmud\textbackslash{}AppData\textbacksla
 
 \end{sphinxuseclass}
 \end{sphinxuseclass}
-\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{2b460cece3b0a0a0c3659f9b0ce2ec8c11ee46dc}.png}
-
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{7d6fd469a318faefc86f64623d53939c50cd5248}.jpg}
-
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{2095b6b68cf1923a78353ac0fa7d86845c2e065a}.jpg}
-
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{43a65dde27030c38045244e4cf18476ff68434c8}.jpg}
-
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{5165c11c1d81e00de83efdb5a7f297174a60c227}.jpg}
-
-\noindent\sphinxincludegraphics[width=700\sphinxpxdimen,height=700\sphinxpxdimen]{{5779dea409501b4ca512f6debc75abd0f7c2fb9f}.png}
-
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{63dcd1a1b16332f7cc61b3f9ef294706f6fbc065}.jpg}
-
-\noindent\sphinxincludegraphics[width=1080\sphinxpxdimen,height=300\sphinxpxdimen]{{0e44c42abd706a033e32580924d093ced157719d}.jpg}
-
 \begin{sphinxuseclass}{nbinput}
 \begin{sphinxuseclass}{nblast}
 {

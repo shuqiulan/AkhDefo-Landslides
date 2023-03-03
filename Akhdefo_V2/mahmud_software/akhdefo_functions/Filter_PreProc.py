@@ -72,7 +72,7 @@ def Filter_PreProcess(unfiltered_folderPath=r"", UDM2_maskfolderPath=r"", outpat
         #img_item=img_list[idx]
         #msk_item=udm_list[idx]
         filepath1, filename = os.path.split(img_list[idx])
-        filename=filename.replace("-", "")
+        #filename=filename.replace("-", "")
         #rgb=rgb_normalize(img_list[idx])
         img_src=rasterio.open(img_list[idx])
         
@@ -178,11 +178,11 @@ def Filter_PreProcess(unfiltered_folderPath=r"", UDM2_maskfolderPath=r"", outpat
         fig1, ((ax12, ax22), (ax32, ax42) ) = plt.subplots(2, 2, figsize=(30,20))
         show(rgb_img_data, ax=ax12)
         show_hist(rgb_img_data, ax=ax22, bins=10, lw=0.0, 
-        stacked=False, alpha=0.3, histtype='stepfilled', density=True, title="Initial: "+str(filename[:-4]))
+        stacked=False, alpha=0.3, histtype='stepfilled', density=True, title="Initial: "+str(filename[:10]))
         ax22.get_legend().remove()
         show(rgb, ax=ax32 )
         show_hist(rgb, ax=ax42, bins=10, lw=0.0, 
-        stacked=False, alpha=0.3, histtype='stepfilled', density=True, title="CLAHE: "+str(filename[:-4]))
+        stacked=False, alpha=0.3, histtype='stepfilled', density=True, title="CLAHE: "+str(filename[:10]))
         ax42.get_legend().remove()
         bn=img_data.shape
         xs=bn[2]
@@ -192,7 +192,7 @@ def Filter_PreProcess(unfiltered_folderPath=r"", UDM2_maskfolderPath=r"", outpat
         ax32.set_xlim(0, xs)
         ax32.set_ylim(ys,0)
         
-        fig1.savefig(figs_dir+ "/" +  str(filename[:-4])+ ".jpg", dpi=150)
+        fig1.savefig(figs_dir+ "/" +  str(filename[:10])+ ".jpg", dpi=150)
         
         if plot_figure==True:
             plt.show()
@@ -213,7 +213,7 @@ def Filter_PreProcess(unfiltered_folderPath=r"", UDM2_maskfolderPath=r"", outpat
             ax12.set_ylim(ys,0)
             ax22.set_xlim(0, xs)
             ax22.set_ylim(ys,0)
-            fig2.savefig(fig_masks + "/" +  str(filename[:-4])+ ".jpg", dpi=150)
+            fig2.savefig(fig_masks + "/" +  str(filename[:10])+ ".jpg", dpi=150)
         
             if plot_figure==True:
                 plt.show()
@@ -226,16 +226,7 @@ def Filter_PreProcess(unfiltered_folderPath=r"", UDM2_maskfolderPath=r"", outpat
        
     print("All process is completed")
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         # #show(bad_mask, title="bad_mask: "+str(udm_list[idx]), cmap="binary")
 

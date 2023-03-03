@@ -40,10 +40,6 @@ def Coregistration(input_Folder=r"", output_folder=r"", grid_res=20, min_reliabi
    
     """
 
-
-
-
-
     import os
     from os.path import isfile, join
     import numpy as np

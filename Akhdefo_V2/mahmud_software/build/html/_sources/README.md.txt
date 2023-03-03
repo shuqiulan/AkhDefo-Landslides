@@ -7,10 +7,16 @@ AKh-Defo is combination of two different words 1) Akh in Kurdish language means 
 # Recommended Citation:
 Muhammad M, Williams-Jones G, Stead D, Tortini R, Falorni G and Donati D (2022) Applications of ImageBased Computer Vision for Remote Surveillance of Slope Instability.Front. Earth Sci. 10:909078. doi: 10.3389/feart.2022.909078
 
+# [Documentation Website](https://akhdefo.readthedocs.io/en/latest/README.html#installation-of-akhdefo-software)
+
+# [Tutorials](https://akhdefo.readthedocs.io/en/latest/Tutorials.html)
+
+# [Latest Version of AkhDefo](https://pypi.org/project/akhdefo-functions/)
+
 # Updates:
 * Akhdefo version one is deprecated please use Akhdefo version 2.
 * Akhdefo now can run on the cloud for real-time processing
-* Akhdefo now consist of 12 Modules that performs end to end python-based GIS and Image Processing and Custumized Figure generation
+* Akhdefo now consist of 21 Modules that performs end to end python-based GIS and Image Processing and Custumized Figure generation
 
 # Installation of Akhdefo Software:
 

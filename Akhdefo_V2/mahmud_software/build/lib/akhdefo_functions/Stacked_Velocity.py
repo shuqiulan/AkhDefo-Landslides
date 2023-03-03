@@ -3,7 +3,7 @@
 
 
 def stackprep(path_to_flowxnFolder=r"", path_toFlowynFolder=r"", dem=r"", print_list=False, start_date="YYYYMMDD", end_date="YYYYMMDD", output_stackedFolder=r"",
-VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, Resampling=True ):
+VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, Resampling=True, Raster_stack_correction=False ):
     
     '''
     This program collects velocity candiate points for time-series analysis.
@@ -35,17 +35,20 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
         "month" or "year") at this stage you can ignore this option; will be removed from future versions
       
     xres: float
-
+        x resolution
     yres: float
+        y resolution
      
     Velocity_shapeFile: bool
 
         set to True if need to generate points for temporal deformation analysis
     
-    Resampling : bool
-
+    Resampling: bool
         if True reduce number of measurement points but faster processing
-
+    
+    Raster_stack_correction: bool
+        if True this feature computes the linearly interpolated pixel values between subsequent time-slices(bands) in raster stack
+    
     Returns
     -------
     ESRI Shapefile
@@ -69,83 +72,81 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
     import rioxarray as rxr
     from rasterio.plot import plotting_extent
     import earthpy.spatial as es
-
+    from osgeo import gdal
     
+
+    if not os.path.exists(output_stackedFolder):
+        os.makedirs(output_stackedFolder)
+        
+        
     def akdefo_calibration_points(path_to_Raster=r"", output_filePath=r"",outputFile_name="" ):
         if not os.path.exists(output_filePath):
             os.makedirs(output_filePath)
-        dataset = rasterio.open(path_to_Raster, "r+")
-        dataset.nodata=np.nan
-        data_array = dataset.read(1)
-        no_data=dataset.nodata
-        geometry = [Point(dataset.xy(x,y)[0],dataset.xy(x,y)[1]) for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        vel = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]  
-        # # # #VEL_STDV
-        # # dataset = rasterio.open(path_to_STDV_Raster, "r+")
-        # # dataset.nodata=np.nan
-        # # data_array = dataset.read(1)
-        # # no_data=dataset.nodata
-        # # geometry = [Point(dataset.xy(x,y)[0],dataset.xy(x,y)[1]) for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # # vel_stdv = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # # #VEL_Direction
-        # dataset = rasterio.open(path_VEL_direction, "r+")
+        
+        # dataset = rasterio.open(path_to_Raster, "r+")
         # dataset.nodata=np.nan
         # data_array = dataset.read(1)
         # no_data=dataset.nodata
         # geometry = [Point(dataset.xy(x,y)[0],dataset.xy(x,y)[1]) for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # vel_dir = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # ##EW and EW_STDV
-        # dataset = rasterio.open(path_EW_Raster, "r+")
-        # dataset.nodata=np.nan
-        # data_array = dataset.read(1)
-        # no_data=dataset.nodata
-        # geometry = [Point(dataset.xy(x,y)[0],dataset.xy(x,y)[1]) for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # vel_EW = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # ######
-        # # dataset = rasterio.open(path_EW_Raster_STDV, "r+")
-        # # dataset.nodata=np.nan
-        # # data_array = dataset.read(1)
-        # # no_data=dataset.nodata
-        # # geometry = [Point(dataset.xy(x,y)[0],dataset.xy(x,y)[1]) for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # # vel_ew_stdv = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
+        # vel = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]  
+        
+        # ######                   
+        # df = gpd.GeoDataFrame({'geometry':geometry,'VEL':vel})
+        def raster_to_points(path_to_Raster=''):
+            from osgeo import gdal, osr
+            import os
+            import pandas as pd 
+            import geopandas as gpd
+            import numpy as np
+            import rasterio
 
-        # ##NS and NS_STDV
-        # dataset = rasterio.open(path_NS_Raster, "r+")
-        # dataset.nodata=np.nan
-        # data_array = dataset.read(1)
-        # no_data=dataset.nodata
-        # geometry = [Point(dataset.xy(x,y)[0],dataset.xy(x,y)[1]) for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # vel_ns = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # ######
-        # # dataset = rasterio.open(path_NS_Raster_STDV, "r+")
-        # # dataset.nodata=np.nan
-        # # data_array = dataset.read(1)
-        # # no_data=dataset.nodata
-        # # geometry = [Point(dataset.xy(x,y)[0],dataset.xy(x,y)[1]) for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
-        # # vel_ns_stdv = [data_array[x,y] for x,y in np.ndindex(data_array.shape) if data_array[x,y] != no_data]
+            #path_to_Raster='stack_prep/20190102_to_20190423_N-S.tif'
+            filename=path_to_Raster[:-4]
+            #filename=path_to_Raster
+            inDs = gdal.Open('{}.tif'.format(filename))
+            outDs = gdal.Translate('{}.xyz'.format(filename), inDs, format='XYZ', creationOptions=["ADD_HEADER_LINE=YES"])
+            outDs = None
+            try:
+                os.remove('{}.csv'.format(filename))
+            except OSError:
+                pass
+            os.rename('{}.xyz'.format(filename), '{}.csv'.format(filename))
+            os.system('ogr2ogr -f "ESRI Shapefile" -oo X_POSSIBLE_NAMES=X* -oo Y_POSSIBLE_NAMES=Y* -oo KEEP_GEOM_COLUMNS=NO {0}.shp {0}.csv'.format(filename))
 
+            dataset=rasterio.open(filename+".tif")
+            df=pd.read_csv(filename+".csv")
+            df[['x', 'y', 'z']] = df['X Y Z'].str.split(' ', 2, expand=True)
 
+            df=df.drop(['X Y Z'], axis=1)
+            df = df.apply (pd.to_numeric, errors='coerce')
+            df = df.dropna()
+            df
+            df[['x', "y",'z']] = df[['x', "y",'z']].applymap(np.float32)
 
-        ######                   
-        df = gpd.GeoDataFrame({'geometry':geometry,'VEL':vel})
+            df['VEL']=df['z']
+            #'SiteID', 'VEL', 'x', 'y', 'geometry'
+            df=df.drop(['z'], axis=1)
+            df = df.astype('float32')
 
-        # df = gpd.GeoDataFrame({'geometry':geometry, "VEL_Dir":vel_dir, 
-        # "VEL_EW":vel_EW, "VEL_EW_STDV":vel_ew_stdv , "VEL_NS":vel_ns, 
-        # "VEL_NS_STDV":vel_ns_stdv})
+            geometry=gpd.points_from_xy(df.x, df.y)
 
-        df.crs = dataset.crs
+            gdf = gpd.GeoDataFrame(df,  geometry=geometry)
+
+            gdf.crs=dataset.crs
+
+            gdf
+
+            #gdf.to_file("Velocity_candidates1.shp", driver='ESRI Shapefile')
+
+            return gdf
+        
+        df=raster_to_points(path_to_Raster)
+         
+        #df.crs = dataset.crs
         df.index.name = 'SiteID'
         df=df.dropna()
         print(df.head(5))
-        # def find_outliers(col, thresh=3.5):
-        #     from scipy import stats
-        #     z=np.abs(stats.zscore(col))
-        #     idx_outliers=np.where(z > thresh, True, False)
-        #     return pd.Series(idx_outliers,index=col.index)
-        # outlier_idx=find_outliers(df["VEL"], thresh=3.5)
-        # df=df.loc[outlier_idx==False]
-        # df.describe()
-        # print(df.head(5))
+        
         Q1 = np.percentile(df["VEL"], 25, interpolation = 'midpoint')
         Q2 = np.percentile(df["VEL"], 50, interpolation = 'midpoint')  
         Q3 = np.percentile(df["VEL"], 75, interpolation = 'midpoint')
@@ -155,7 +156,6 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
         # q_low = df["VEL"].quantile(0.01)
         # q_hi  = df["VEL"].quantile(0.99)
         df = df[(df["VEL"] < q_hi) & (df["VEL"] > q_low)]
-
         outlier =[]
         for x in df["VEL"]:
             if ((x> q_hi) or (x<q_low)):
@@ -168,8 +168,8 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
         # q_hi  = gdf_NS["VEL"].quantile(0.99)
 
         # 
-        df['x'] = df.geometry.apply(lambda p: p.x)
-        df['y'] = df.geometry.apply(lambda p: p.y)
+        # df['x'] = df.geometry.apply(lambda p: p.x)
+        # df['y'] = df.geometry.apply(lambda p: p.y)
        
         # import fiona
         # fiona.supported_drivers['KML'] = 'rw'
@@ -282,8 +282,7 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
 
             return interp_image
 
-    if not os.path.exists(output_stackedFolder):
-        os.makedirs(output_stackedFolder)
+    
 
     glistxn = sorted(glob.glob( path_to_flowxnFolder + "/" +"*.tif"))
 
@@ -387,7 +386,7 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
     #from rasterio.enums import Resampling
      #Read each layer and write it to stack
    #20220530_20220606_20220608
-    with rasterio.open('raster_stackxn.tif', 'w', **metaxn) as dst:
+    with rasterio.open(output_stackedFolder+"/"+'raster_stackxn.tif', 'w', **metaxn) as dst:
         name_list=[]
         
         for id, layer in enumerate(glistxn[start_index:end_index], start=1):
@@ -402,13 +401,14 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
      
     #Save Name of files into textfile
     # open file in write mode
-    with open(r'Names.txt', 'w') as fp:
+    #datefrom + "_to_"+ dateto + "_list.txt"
+    with open(output_stackedFolder+"/"+'Names.txt', 'w') as fp:
         for item in name_list:
             # write each item on a new line
             fp.write("%s\n" % item)
         print('exporting name list Done')           
     #Read Raster Stack
-    with rasterio.open("raster_stackxn.tif") as stack_src:
+    with rasterio.open(output_stackedFolder+"/"+'raster_stackxn.tif') as stack_src:
         stack_dataxn = stack_src.read(masked=True)
        
         stack_metaxn = stack_src.profile
@@ -435,7 +435,7 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
     metayn.update(count = len(namesyn))
 
      #Read each layer and write it to stack
-    with rasterio.open('raster_stackyn.tif', 'w', **metayn) as dst:
+    with rasterio.open(output_stackedFolder+"/"+'raster_stackyn.tif', 'w', **metayn) as dst:
         name_list=[]
         for id, layer in enumerate(glistyn[start_index:end_index], start=1):
             filepath1, band_name = os.path.split(layer)
@@ -444,100 +444,64 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
             with rasterio.open(layer) as src1:
                 dst.write_band(id, src1.read(1, masked=True))
                 dst.set_band_description(id, band_name)
-        #dst.descriptions = tuple(name_list)
-            
-       
-
-    #Read Raster Stack
-    # with rasterio.open("raster_stackyn.tif") as stack_src:
-    #     stack_datayn = stack_src.read(masked=True)
-        
-    #     stack_metayn = stack_src.profile
-        
-    #     #stack_datayn = numpy.ma.masked_array(stack_datayn, mask=(stack_datayn== 0))
-
-    # #Check meat data
-    # stack_metayn
-
     
-    #print(namesxn[0:110])
-    # print ("plot stacked flowyn")
-    # ep.plot_bands(stack_datayn, cmap='gist_rainbow',  scale=False, cbar=True, title=namesyn) 
-# #############################################################################
-    # #Read Triplet velocities and write to stack
-    # #triplet_vel_list = sorted(glob.glob( path_to_flowxnFolder + "/" +"*.tif"))
-    # triplet_vel_list = sorted(glob.glob( "georeferenced_folder/VEL_Triplets/*.tif"))
-    # #Read metadata of first file
-    # with rasterio.open(triplet_vel_list[0]) as src0:
-    #     meta_triplets= src0.meta
-    #     meta_1band=src0.meta
+    #Function to linearly interpolate between bands in raster stack
+    def interpolate_rasterStack(input_raster_stack, output_raster_stack ):
+        import os
+        from osgeo import gdal, gdalconst
+        # Input raster stack file name
+        #input_raster_stack = "stack_data_2019_Jan_May/raster_stackxn.tif"
+        # Output raster stack file name
+        #output_raster_stack = "stack_data_2019_Jan_May/interpolate_stackxn.tif"
+        # Open the input raster stack
+        input_ds = gdal.Open(input_raster_stack, gdalconst.GA_ReadOnly)
+        # Get the number of bands in the input raster stack
+        num_bands = input_ds.RasterCount
+        # Get the geotransform and projection of the input raster stack
+        geotransform = input_ds.GetGeoTransform()
+        projection = input_ds.GetProjection()
+        # Create an empty output raster stack with the same dimensions, number of bands, and data type as the input raster stack
+        driver = gdal.GetDriverByName("GTiff")
+        output_ds = driver.Create(output_raster_stack, input_ds.RasterXSize, input_ds.RasterYSize, num_bands, input_ds.GetRasterBand(1).DataType)
+        # Set the geotransform and projection of the output raster stack
+        output_ds.SetGeoTransform(geotransform)
+        output_ds.SetProjection(projection)
+        # Loop through the bands of the input raster stack and interpolate the pixel values
+        for i in range(num_bands):
+            # Get the current band of the input raster stack
+            input_band = input_ds.GetRasterBand(i + 1)
+            # Read the pixel values of the current band into a 2D NumPy array
+            input_array = input_band.ReadAsArray()
+            # Compute the linearly interpolated pixel values between the current band and the next band
+            if i < num_bands - 1:
+                next_band = input_ds.GetRasterBand(i + 2)
+                next_array = next_band.ReadAsArray()
+                interpolated_array = (input_array + next_array) / 2.0
+            else:
+                # For the last band, just use the pixel values of the input array
+                interpolated_array = input_array
+            # Write the interpolated pixel values to the corresponding band of the output raster stack
+            output_band = output_ds.GetRasterBand(i + 1)
+            output_band.WriteArray(interpolated_array)
+        # Close the input and output raster datasets
+        input_ds = None
+        output_ds = None
 
-
-    # #working on velocity triplets
-    # #######################################################################################################
-    # names_triplets = [os.path.basename(x) for x in triplet_vel_list[start_index:end_index]]
-    # print("Number of Triplets", len(names_triplets))
-    # Reference_date=start_index
-    # meta_triplets.update(count=len(namesxn))
-
-    # with rasterio.open('raster_stack_tripletVEL.tif', 'w', **meta_triplets) as dst:
-    #     name_list=[]
-        
-    #     for id, layer in enumerate(triplet_vel_list[start_index:end_index], start=1):
-    #         filepath1, band_name = os.path.split(layer)
-    #         name_list.append(band_name)
-    #         with rasterio.open(layer) as src1:
-                
-    #             dst.write_band(id, src1.read(1, masked=True))
-    #     dst.descriptions = tuple(name_list)
-                
-    
-    # #Read Raster Stack
-    # with rasterio.open("raster_stack_tripletVEL.tif") as stack_src:
-    #     stack_data_triplets = stack_src.read(masked=True)
-       
-    #     stack_meta_triplets = stack_src.profile
-        
-    #     #stack_data_triplets = numpy.ma.masked_array(stack_data_triplets, mask=(stack_data_triplets== 0))
-    
-    # vel_list=[]
-    # for stack_vel in stack_data_triplets:
-    #     stack_vel=np.array(stack_vel)
-    #     vel_list.append(stack_vel)
-    # ep.plot_bands((np.stack(vel_list)), cmap='gist_rainbow', title=names_triplets)
-
-    
-
-    # vel_stacklist=np.stack(vel_list)
-    
-    # std=np.nanstd(vel_stacklist, axis=0) /No_ofDays * VEL_factor
-    
-    # std[std > std_mm ]=np.nan
-    # mask=np.isnan(std)
-    # plt.colorbar(plt.imshow(mask))
-    # plt.title(" Velocity STD Map")
-    # plt.show
-
-    # velocity=np.nanmean(vel_stacklist, axis=0) /No_ofDays * VEL_factor
-    # velocity[mask]=np.nan
- 
-#     ##################################################################################################
-     
-    # stackxlist=[]
-    # for stackx in stack_dataxn:
-        
-    #     stackxlist.append(stackx)
-    # stackxlistnp=np.stack(stackxlist)
-    #Avgx =sum(stackxlist)
-    #mean_x =np.average(stackxlist, axis=0) 
 
     print("No of days: ", No_ofDays)
-
-    #read nstack layers
-    from osgeo import gdal
-    from osgeo import gdal
-    stack_dataxn = gdal.Open('raster_stackxn.tif')
-    bands = stack_dataxn.RasterCount
+    
+    if Raster_stack_correction==True: 
+        interpolate_rasterStack(input_raster_stack=output_stackedFolder+"/"+'raster_stackxn.tif', output_raster_stack=output_stackedFolder+"/"+'raster_stackxn_cor.tif')
+        #read nstack layers
+        stack_dataxn = gdal.Open(output_stackedFolder+"/"+'raster_stackxn_cor.tif')
+        bands = stack_dataxn.RasterCount
+        
+    else:
+            
+        #read nstack layers
+        stack_dataxn = gdal.Open(output_stackedFolder+"/"+'raster_stackxn.tif')
+        bands = stack_dataxn.RasterCount
+        
 
     stackxlist = []  # list to store all the bands
     for band in range(1, bands+1):
@@ -546,10 +510,19 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
 
     stackxlist = np.stack(stackxlist)  # (n bands by n rows by n cols array)
     mean_x = np.nanmean(stackxlist, axis=0)/int(No_ofDays) * VEL_factor  # (n rows by n cols array)
-
+    
     stack_dataxn=None
-    stack_datayn = gdal.Open('raster_stackyn.tif')
-    bands = stack_datayn.RasterCount
+    
+    if Raster_stack_correction==True: 
+        interpolate_rasterStack(input_raster_stack=output_stackedFolder+"/"+'raster_stackyn.tif', output_raster_stack=output_stackedFolder+"/"+'raster_stackyn_cor.tif')
+        stack_datayn = gdal.Open(output_stackedFolder+"/"+'raster_stackyn_cor.tif')
+        bands = stack_datayn.RasterCount
+        
+    else:
+        
+        stack_datayn = gdal.Open(output_stackedFolder+"/"+'raster_stackyn.tif')
+        bands = stack_datayn.RasterCount
+
 
     stackylistd = []  # list to store all the bands
     for band in range(1, bands+1):
@@ -785,10 +758,10 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
 
         # resample
         dsRes = gdal.Warp(output_raster, ds, xRes = xres, yRes = yres, 
-                        resampleAlg = "bilinear")
+                        resampleAlg = "cubicspline")
 
         # visualize
-        array = dsRes.GetRasterBand(1).ReadAsArray()
+        #array = dsRes.GetRasterBand(1).ReadAsArray()
 
         # plt.figure()
         # plt.imshow(array)
@@ -797,7 +770,7 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
 
         # close your datasets!
         dsRes =None
-        return array
+        
 
     if Resampling==True:
         
@@ -811,9 +784,9 @@ VEL_scale=("month","year") , xres=3.125, yres=3.125, Velocity_shapeFile=False, R
     if Velocity_shapeFile==True:
         print("Velocity Candiate points Collection process started")
         if Resampling==True: 
-            _1=akdefo_calibration_points(path_to_Raster=sv_mag_resampled, output_filePath="stack_data", outputFile_name= datefrom + "_to_"+ dateto + "_velocity")
+            _1=akdefo_calibration_points(path_to_Raster=sv_mag_resampled, output_filePath=output_stackedFolder+"/"+"Velocity_Candidate_Points", outputFile_name= datefrom + "_to_"+ dateto + "_velocity")
         else:
-            _1=akdefo_calibration_points(path_to_Raster=sv_mag, output_filePath="stack_data", outputFile_name= datefrom + "_to_"+ dateto + "_velocity")
+            _1=akdefo_calibration_points(path_to_Raster=sv_mag, output_filePath=output_stackedFolder+"/"+"Velocity_Candidate_Points", outputFile_name= datefrom + "_to_"+ dateto + "_velocity")
 
 
 

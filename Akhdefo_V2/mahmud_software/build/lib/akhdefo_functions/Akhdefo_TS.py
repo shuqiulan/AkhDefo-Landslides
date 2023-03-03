@@ -1,6 +1,6 @@
 
 def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"", dates_name=r"", output_folder="", outputFilename="",
-                rasteriz_mean_products=True, std=1, VEL_Scale='year' , velocity_mode="mean", master_reference=False):
+                 std=1, VEL_Scale='year' , velocity_mode="mean", master_reference=False):
     
     '''
     This program uses candiate velocity points from stackprep function and performs linear interpolation in time-domain to calibrate
@@ -8,7 +8,7 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
     
     Parameters
     ----------
-    
+    b   
     stacked_raster_EW: str
     
     stacked_raster_NS: str
@@ -38,20 +38,21 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
     Time-series shape file of velocity and direction EW, NS, and 2D(resultant Velocity and direction)
     
     '''
-    import rasterio
     import os
-    from os.path import isfile, join
+    from os.path import join
     import numpy as np
     import glob
     import geowombat as gw
     import pandas as pd
     import geopandas as gpd
     import scipy.stats as stats
-    from geocube.api.core import make_geocube
-    from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
-    from functools import partial
     from datetime import datetime
     from dateutil import parser
+    import os
+    import glob
+    import dask.dataframe as dd
+    from datetime import datetime 
+    
     
     def Helper_Time_Series(stacked_raster=r"", velocity_points=r"", dates_name=r"", output_folder="", outputFilename="", std=1 , VEL_Scale=VEL_Scale):
         
@@ -67,13 +68,7 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
         outputFilename: name for out time-series velocity shapefile
         '''
         
-        import os
-        import numpy as np
-        import glob
-        import geowombat as gw
-        import pandas as pd
-        import geopandas as gpd
-        from sklearn.linear_model import LinearRegression
+        
         
         if not os.path.exists(output_folder):
                 os.makedirs(output_folder)
@@ -83,7 +78,11 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
 
         with gw.open(stacked_raster, stack_dim='time') as src:
             print(src)
-            df = src.gw.extract(velocity_points)
+            #df = src.gw.extract(velocity_points)
+            df = src.gw.extract(velocity_points, use_client=True , dtype='float32')
+            df[df.select_dtypes(np.float64).columns] = df.select_dtypes(np.float64).astype(np.float32)
+
+        
 
         #Import names to label timeseries data    
         names = []
@@ -106,42 +105,89 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
         cc=np.arange(1,cci)
         #Add Timesereises column names
         
-        #find outliers using z-score iter 1
-        lim = np.abs((df2[cc] - df2[cc].mean(axis=1)) / df2[cc].std(ddof=0, axis=1)) < std
+        # #find outliers using z-score iter 1
+        # lim = np.abs((df2[cc] - df2[cc].mean(axis=1)) / df2[cc].std(ddof=0, axis=1)) < std
         
-        # # # replace outliers with nan
-        df2[cc]= df2[cc].where(lim, np.nan)
+        # # # # replace outliers with nan
+        # df2[cc]= df2[cc].where(lim, np.nan)
         
         
         
-        df2[cc] = df2[cc].astype(float).apply(lambda x: x.interpolate(method='linear', limit_direction='both'), axis=1).ffill().bfill()
+        # df2[cc] = df2[cc].astype(float).apply(lambda x: x.interpolate(method='linear', limit_direction='both'), axis=1).ffill().bfill()
        
         
+        # df2=df2.T
+        
+        # #find outliers using z-score iter 2
+        # lim = np.abs((df2 - df2.mean(axis=0)) / df2.std(ddof=0,axis=0)) < std
+        # #lim=df2.apply(stats.zscore, axis=1) <1
+        # # # # replace outliers with nan
+        # df2= df2.where(lim, np.nan)
+        
+        # df2= df2.astype(float).apply(lambda x: x.interpolate(method='linear', limit_direction='both'), axis=0).ffill().bfill()
+        
+        # for col in df2.columns:
+        #     #print (col)
+        #     #df2[col]=pd.to_numeric(df2[col])
+        #     df2[col]= df2[col].interpolate(method='index', axis=0).ffill().bfill()
+        
+        # df2=df2.T
+            
+           
+        #Add Timesereises column names
+        df2.columns = dnames
+        
+        df2 = dd.from_pandas(df2, npartitions=10)
+        
+        
+        # define a function to replace outliers with NaN using z-scores along each row
+        def replace_outliers(row, stdd=std):
+            zscores = (row - row.mean()) / row.std()
+            row[abs(zscores) > stdd] = np.nan
+            return row
+
+        # apply the function to each row using apply
+        df2 = df2.apply(replace_outliers, axis=1)
+        
+        #df2=df2.compute()
+        
+        # Select columns with 'float64' dtype  
+        #float64_cols = list(df2.select_dtypes(include='float64'))
+
+        # The same code again calling the columns
+        df2[dnames] = df2[dnames].astype('float32')
+        
+        
+        
+        df2[dnames] = df2[dnames].apply(lambda x: x.interpolate(method='linear', limit_direction='both'), axis=1).ffill().bfill()
+        
+        df2=df2.compute()
+        
         df2=df2.T
-        
-        #find outliers using z-score iter 2
-        lim = np.abs((df2 - df2.mean(axis=0)) / df2.std(ddof=0,axis=0)) < std
-        #lim=df2.apply(stats.zscore, axis=1) <1
-        # # # replace outliers with nan
-        df2= df2.where(lim, np.nan)
-        
-        df2= df2.astype(float).apply(lambda x: x.interpolate(method='linear', limit_direction='both'), axis=0).ffill().bfill()
-        
         for col in df2.columns:
             #print (col)
             #df2[col]=pd.to_numeric(df2[col])
             df2[col]= df2[col].interpolate(method='index', axis=0).ffill().bfill()
         
         df2=df2.T
-            
-           
-        #Add Timesereises column names
+        
         df2.columns = dnames
+        
+        
+        
+
+        # # interpolate missing values along each row
+        # df2.interpolate(axis=1, limit_direction='both', limit_area='inside', method='linear', inplace=True)
+                
+        #  # Forward fill the DataFrame
+        # df2.ffill(inplace=True)
+
+        # # Backward fill the DataFrame
+        # df2.bfill(inplace=True)
         
         #Calculate Linear Velocity for each data point
         def linear_VEL(df, dnames):
-            from datetime import datetime 
-            from scipy import stats
+            
             # def best_fit_slope_and_intercept(xs,ys):
             #     from statistics import mean
             #     xs = np.array(xs, dtype=np.float64)
@@ -241,12 +287,15 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
             out['VEL']=linear_velocity[0]
             out['VEL_STD']=linear_velocity[1]
         if VEL_Scale=="month": 
-            out['VEL']=out['VEL']/velocity_scale[2] * 30
-            out['VEL_STD']=out['VEL_STD']/velocity_scale[2] *30
+            out['VEL']=out['VEL']/velocity_scale[2] * 30  #velocity_scale[2] is number of days
+            out['VEL_STD']=out['VEL_STD'] /velocity_scale[2] *30
         elif VEL_Scale=="year":
             out['VEL']=out['VEL']/velocity_scale[2] * 365
             out['VEL_STD']=out['VEL_STD']/velocity_scale[2] * 365
-            
+        else:
+            out['VEL']=out['VEL']
+            out['VEL_STD']=out['VEL_STD']
+               
         
             
         out['geometry']=df['geometry']
@@ -272,13 +321,25 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
 
         return geo_out, dnames, linear_VEL
     
-    EW=Helper_Time_Series(stacked_raster='raster_stackxn.tif', velocity_points=velocity_points ,
-                             dates_name='Names.txt', output_folder='stack_data/TS', outputFilename="TS_EW_"+ os.path.basename(velocity_points), std=std, VEL_Scale=VEL_Scale)
+    if output_folder=="":
+            output_folder= "stack_data/TS"
+            
+    
+    if not os.path.exists(output_folder):
+                os.makedirs(output_folder)
+    if outputFilename=="":
+            outputFilename= "TS_2D_"+ os.path.basename(velocity_points)
+            
+            
+            
+    EW=Helper_Time_Series(stacked_raster=stacked_raster_EW, velocity_points=velocity_points ,
+                             dates_name=dates_name, output_folder=output_folder, outputFilename="TS_EW_"+ os.path.basename(velocity_points), std=std, VEL_Scale=VEL_Scale)
                              
-    NS=Helper_Time_Series(stacked_raster='raster_stackyn.tif', velocity_points=velocity_points, 
-                             dates_name='Names.txt', output_folder='stack_data/TS', outputFilename="TS_NS_"+ os.path.basename(velocity_points), std=std, VEL_Scale=VEL_Scale)
+    NS=Helper_Time_Series(stacked_raster=stacked_raster_NS, velocity_points=velocity_points, 
+                             dates_name=dates_name, output_folder=output_folder, outputFilename="TS_NS_"+ os.path.basename(velocity_points), std=std, VEL_Scale=VEL_Scale)
     
-    
+    if not os.path.exists(output_folder):
+                os.makedirs(output_folder)
     if outputFilename=="":
             outputFilename= "TS_2D_"+ os.path.basename(velocity_points)
             
@@ -354,25 +415,3 @@ def Time_Series(stacked_raster_EW=r"", stacked_raster_NS=r"", velocity_points=r"
     corrected_mean_products_geo.to_file(output_folder +"/" + outputFilename[:-4]+"_mean.shp")
     
     
-    if rasteriz_mean_products==True:
-        
-        corrected_means_list=['VEL_E', 'VEL_N', 'VEL_2D', 'VEL_2DDir', '2DV_STDEV']
-       
-        for id, col_means in enumerate(corrected_means_list):
-                
-            geo_grid_vel = make_geocube(
-                        vector_data=corrected_mean_products_geo,
-                        measurements=[col_means],
-                        resolution=(10, 10),
-                    output_crs="epsg:32610",
-                rasterize_function=partial(rasterize_points_radial, method="nearest") )
-            
-            geo_grid_vel[col_means].rio.to_raster("stack_data/"+ str(col_means)+'.tif')
-            with rasterio.open("stack_data/"+ str(col_means)+'.tif', 'r+')as src:
-                meta=src.meta
-                src_data=src.read()
-            # src.close() # close the rasterio dataset
-            # os.remove("stack_data/"+ str(col_means)+'.tif') # delete the file 
-            with rasterio.open("stack_data/"+ str(col_means)+'1.tif', 'w+', **meta) as dst:
-                dst.write(src_data)
-                               
