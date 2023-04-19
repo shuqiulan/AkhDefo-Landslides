@@ -96,6 +96,7 @@ latex_use_modindex = True
 
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('../../mahmud_software/'))
 
 project = 'Akhdefo'
@@ -110,7 +111,9 @@ extensions = ['sphinx.ext.duration',
    'sphinx.ext.doctest',
    'sphinx.ext.autodoc',
    'sphinx.ext.autosummary', 'sphinx.ext.intersphinx', 'myst_parser',  "nbsphinx",
-    "sphinx_gallery.load_style", ]
+    "sphinx_gallery.load_style",]
+
+
 
 
 autodoc_mock_imports = ["akhdefo_functions.unzip",
@@ -158,5 +161,11 @@ nb_custom_formats = {
 
 import plotly.io as pio
 pio.renderers.default = 'sphinx_gallery'
+
+html_logo = 'akhdefo_logo.png'
+html_theme_options = {
+    'logo_only': True,
+    'display_version': False,
+}
 
 

@@ -730,7 +730,7 @@ def DynamicChangeDetection(Path_working_Directory=r"" , Path_UDM2_folder=r"", AO
             demfile = r1.read(1)
             meta = r1.meta
         
-        flow_xgr=flow_x / 3/int(Delta_DD) * image_sensor_resolution #convert pixel to cm(mm) and divide by difference of number of days between frame1 and frame3
+        flow_xgr=flow_x /3/int(Delta_DD) * image_sensor_resolution #convert pixel to cm(mm) and divide by difference of number of days between frame1 and frame3
         flow_ygr=flow_y /3/ int(Delta_DD) * image_sensor_resolution
 
     
